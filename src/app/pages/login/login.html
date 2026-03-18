@@ -1,0 +1,52 @@
+<div class="min-h-full flex items-center justify-center px-4">
+
+  <div class="w-full max-w-md bg-white p-6 rounded-xl shadow-xl" animate.enter="appear-up">
+
+    <h2 class="text-2xl font-semibold text-center mb-1">
+      Welcome Back
+    </h2>
+
+    <form class="space-y-4" (ngSubmit)="onSubmit()">
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Email</label>
+        <input type="email" placeholder="Enter your email" name="email" [(ngModel)]="email" class="form-field" autocomplete="off">
+      </div>
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Password</label>
+        <input type="password" placeholder="Enter your password" name="password" [(ngModel)]="password" class="form-field"
+          autocomplete="off">
+      </div>
+
+      <div class="input-field-wrapper">
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" class="h-4 w-4" autocomplete="off">
+          Remember me
+        </label>
+
+      </div>
+
+      @if(errorMessage) {
+      <p class="text-center text-red-400 text-xs">{{errorMessage}}</p>
+      }
+      <button class="btn w-full">Login</button>
+
+    </form>
+
+    <p class="text-sm text-center mt-5">
+      Don’t have an account?
+      <a routerLink="/signup" class="text-blue-700 hover:underline">
+        Sign up
+      </a>
+    </p>
+
+    <p class="text-sm text-center">
+      <a routerLink="/password/reset" class="text-sm text-blue-600 hover:underline">
+        Forgot Password?
+      </a>
+    </p>
+
+  </div>
+
+</div>

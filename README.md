@@ -1,59 +1,113 @@
-# HrManagementPortal
+# HR Management Portal
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+An Angular 21 HR management portal prototype for common people-ops workflows such as employee management, attendance tracking, leave handling, payroll views, recruitment, and company settings.
 
-## Development server
+This project is currently a frontend-focused demo application. Several modules use seeded mock data, and some feature areas persist changes in `localStorage` so the UI remains interactive across refreshes without a backend.
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- Dashboard with role-based summary cards and activity sections
+- Employee directory with filter controls and export/add action placeholders
+- Attendance calendar, timesheet entry modal, and attendance records
+- Leave application, leave requests, and leave balance tracking
+- Payslips and salary structure management
+- Recruitment screens for jobs and candidates
+- Department management and reports pages
+- Profile, notifications, company settings, and security/general settings
+- Authentication-related pages for login, signup, and password reset
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tech Stack
 
-## Code scaffolding
+- Angular 21 with standalone components
+- Angular Router
+- Angular Signals for UI and store state
+- SCSS for styling
+- Tailwind CSS v4 utilities in global styles
+- Vitest via Angular's unit test builder
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Project Status
 
-```bash
-ng generate component component-name
-```
+The app is best described as a UI prototype or frontend starter for an HR platform.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- Some pages are static or partially interactive
+- Attendance, leave, salary structure, and company settings include local state stores
+- Data persistence is browser-based only and uses `localStorage`
+- There is no API or authentication backend wired into the project yet
 
-```bash
-ng generate --help
-```
+## Getting Started
 
-## Building
+### Prerequisites
 
-To build the project run:
+- Node.js
+- npm
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Install dependencies
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Run the app locally
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The dev server runs at `http://localhost:4200/`.
+
+## Available Scripts
+
+```bash
+npm start      # Start Angular dev server
+npm run build  # Create a production build in dist/
+npm run watch  # Build in watch mode using development configuration
+npm test       # Run unit tests
+```
+
+## Main Routes
+
+- `/dashboard`
+- `/employees`
+- `/attendance`
+- `/attendance/records`
+- `/leave/apply`
+- `/leave/requests`
+- `/leave/balance`
+- `/payslips`
+- `/salary-structure`
+- `/holiday-list`
+- `/recruitment/jobs`
+- `/recruitment/candidates`
+- `/departments`
+- `/reports`
+- `/company-setting`
+- `/settings`
+- `/settings/security`
+- `/profile`
+- `/notifications`
+- `/login`
+- `/signup`
+- `/password/reset`
+
+## Local Persistence
+
+The following feature areas currently save data to browser `localStorage`:
+
+- Attendance entries
+- Leave requests and leave balances
+- Salary structure
+- Company settings
+
+If you want a clean demo state, clear site storage in your browser and reload the app.
+
+## Build Output
+
+Production builds are generated in the `dist/` directory.
+
+## Future Improvements
+
+- Connect the UI to a real API and database
+- Add authentication and role-based access control
+- Replace hard-coded lists with server-backed data
+- Expand automated test coverage
+- Add end-to-end testing

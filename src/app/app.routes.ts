@@ -1,26 +1,4 @@
 import { Routes } from '@angular/router';
-import { HolidayCalendar } from './holiday-calendar/holiday-calendar';
-import { Payslips } from './payslips/payslips';
-import { Dashboard } from './dashboard/dashboard';
-import { Employees } from './employees/employees';
-import { Attendance } from './attendance/attendance';
-import { LeaveApply } from './leave-apply/leave-apply';
-import { LeaveRequests } from './leave-requests/leave-requests';
-import { LeaveBalance } from './leave-balance/leave-balance';
-import { AttendanceRecords } from './attendance-records/attendance-records';
-import { SalaryStructurePage } from './salary-structure/salary-structure';
-import { ProfilePage } from './profile/profile';
-import { CompanySettingPage } from './company-setting/company-setting';
-import { GeneralSettings, SecuritySettings, Settings } from './settings/settings';
-import { Notifications } from './notifications/notifications';
-import { Login } from './login/login';
-import { Signup } from './signup/signup';
-import { ForgotPasswordPage } from './forgot-password-page/forgot-password-page';
-import { NotFoundPage } from './not-found-page/not-found-page';
-import { Jobs } from './jobs/jobs';
-import { Candidates } from './candidates/candidates';
-import { Departments } from './departments/departments';
-import { Reports } from './reports/reports';
 
 export const routes: Routes = [
     {
@@ -30,112 +8,134 @@ export const routes: Routes = [
     },
     {
         path: "dashboard",
-        component: Dashboard
+        loadComponent: () => import("./pages/dashboard/dashboard").then(m => m.Dashboard),
+        title: "HRMS - Dashboard"
     },
     {
         path: "employees",
-        component: Employees
+        loadComponent: () => import("./pages/employees/employees").then(m => m.Employees),
+        title: "HRMS - Employees"
     },
     {
         path: "attendance",
-        component: Attendance
-    },
-    {
-        path: "attendance/records",
-        component: AttendanceRecords
+        loadComponent: () => import("./pages/attendance/attendance").then(m => m.Attendance),
+        title: "HRMS - Attendance",
+        children: [
+            {
+                path: "records",
+                loadComponent: () => import("./pages/attendance-records/attendance-records").then(m => m.AttendanceRecords),
+                title: "HRMS - Attendance Records"
+            },
+        ]
     },
     {
         path: "payslips",
-        component: Payslips
+        loadComponent: () => import("./pages/payslips/payslips").then(m => m.Payslips),
+        title: "HRMS - Payslips"
     },
     {
         path: "salary-structure",
-        component: SalaryStructurePage
+        loadComponent: () => import("./pages/salary-structure/salary-structure").then(m => m.SalaryStructurePage),
+        title: "HRMS - Salary Structure"
     },
     {
         path: "holiday-list",
-        component: HolidayCalendar
+        loadComponent: () => import("./pages/holiday-calendar/holiday-calendar").then(m => m.HolidayCalendar),
+        title: "HRMS - Holiday List"
     },
     {
         path: "settings",
-        component: Settings,
+        loadComponent: () => import("./pages/settings/settings").then(m => m.Settings),
+        title: "HRMS - Settings",
         children: [
             {
                 path: "",
-                component: GeneralSettings,
-                title: "Settings - General"
+                loadComponent: () => import("./pages/settings/settings").then(m => m.GeneralSettings),
             },
             {
                 path: "security",
-                component: SecuritySettings,
-                title: "Settings - Security"
+                loadComponent: () => import("./pages/settings/settings").then(m => m.SecuritySettings),
             }
         ]
     },
     {
         path: "notifications",
-        component: Notifications
+        loadComponent: () => import("./pages/notifications/notifications").then(m => m.Notifications),
+        title: "HRMS - Notifications"
     },
     {
         path: "login",
-        component: Login
+        loadComponent: () => import("./pages/login/login").then(m => m.Login),
+        title: "HRMS - Login"
     },
     {
         path: "signup",
-        component: Signup
+        loadComponent: () => import("./pages/signup/signup").then(m => m.Signup),
+        title: "HRMS - Signup"
     },
     {
         path: "password/reset",
-        component: ForgotPasswordPage
+        loadComponent: () => import("./pages/forgot-password-page/forgot-password-page").then(m => m.ForgotPasswordPage),
+        title: "HRMS - Reset Password"
     },
     {
         path: "company-setting",
-        component: CompanySettingPage
+        loadComponent: () => import("./pages/company-setting/company-setting").then(m => m.CompanySettingPage),
+        title: "HRMS - Organization Settings"
     },
     {
         path: "profile",
-        component: ProfilePage
+        loadComponent: () => import("./pages/profile/profile").then(m => m.ProfilePage),
+        title: "HRMS - Profile"
     },
     {
         path: "leave",
+        title: "HRMS - Leave",
         children: [
             {
                 path: "apply",
-                component: LeaveApply
+                loadComponent: () => import("./pages/leave-apply/leave-apply").then(m => m.LeaveApply),
             },
             {
                 path: "requests",
-                component: LeaveRequests
+                loadComponent: () => import("./pages/leave-requests/leave-requests").then(m => m.LeaveRequests),
             },
             {
                 path: "balance",
-                component: LeaveBalance
+                loadComponent: () => import("./pages/leave-balance/leave-balance").then(m => m.LeaveBalance),
             },
         ]
     },
     {
         path: "recruitment",
+        data: {role: "manager"},
         children: [
             {
                 path: "jobs",
-                component: Jobs
+                loadComponent: () => import("./pages/jobs/jobs").then(m => m.Jobs),
+                title: "HRMS - Jobs List"
             },
             {
                 path: "candidates",
-                component: Candidates
+                loadComponent: () => import("./pages/candidates/candidates").then(m => m.Candidates),
+                title: "HRMS - Candidates List"
             }
         ]
     },
     {
         path: "departments",
-        component: Departments
+        loadComponent: () => import("./pages/departments/departments").then(m => m.Departments),
+        title: "HRMS - Departments",
+        data: {role: "manager"}
     },
     {
         path: "reports",
-        component: Reports
+        loadComponent: () => import("./pages/reports/reports").then(m => m.Reports),
+        title: "HRMS - Reports"
     },
     {
         path: "**",
-        component: NotFoundPage
+        loadComponent: () => import("./pages/not-found-page/not-found-page").then(m => m.NotFoundPage),
+        title: "HRMS - 404 Not Found"
     }
 ];

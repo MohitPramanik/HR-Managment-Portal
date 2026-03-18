@@ -1,0 +1,32 @@
+<nav class="header-bar sticky top-0 flex-c-sb text-white p-6">
+    <a routerLink="/dashboard" class="font-extrabold">LOGO</a>
+
+    <div class="ml-auto flex items-center gap-4">
+        <dropdown>
+            <dropdown-label><i class="fa-solid fa-bell text-xl"></i></dropdown-label>
+            <dropdown-content>
+                <li>
+                    <span class="text-sm text-gray-800">No new notifications</span>
+                </li>
+            </dropdown-content>
+        </dropdown>
+
+        <dropdown>
+            <dropdown-label><i class="fa-solid fa-circle-user text-2xl"></i></dropdown-label>
+            <dropdown-content>
+                <li>
+                    <a routerLink="/profile">Profile</a>
+                </li>
+                <li>
+                    <a routerLink="/settings">Settings</a>
+                </li>
+                <li>
+                    <button (click)="logout()">Logout</button>
+                </li>
+            </dropdown-content>
+        </dropdown>
+    </div>
+
+
+
+</nav>

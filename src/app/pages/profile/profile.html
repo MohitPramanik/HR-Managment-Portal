@@ -1,0 +1,70 @@
+<div class="py-5">
+  <h2 class="sm:text-2xl text-xl font-extrabold">Profile</h2>
+
+  <div class="card my-4">
+    <div class="flex gap-3 items-center">
+      <div class="avatar">MP</div>
+      <div>
+        <p class="font-extrabold text-lg">Mohit Pramanik</p>
+        <p class="text-xs text-gray-600 mt-1">mohit.pramanik@company.com</p>
+      </div>
+    </div>
+
+    <hr class="section-separator my-4" />
+
+    <div class=" grid sm:grid-cols-2 gap-2 px-2 text-sm text-gray-700">
+      <div><span class="font-semibold">Employee ID:</span> EMP001</div>
+      <div><span class="font-semibold">Department: </span> Engineering</div>
+      <div><span class="font-semibold">Designation: </span> Software Developer</div>
+      <div><span class="font-semibold">Reports To: </span> Vivek Pramanik</div>
+      <div><span class="font-semibold">Location:</span> Ranchi</div>
+      <div><span class="font-semibold">Joined:</span> 2024-05-01</div>
+      <div><span class="font-semibold">Contact No.:</span> +91 2384749834</div>
+      <div><span class="font-semibold">Employment Type:</span> Full Time</div>
+    </div>
+
+    <hr class="section-separator my-4" />
+
+    <div class=" grid sm:grid-cols-2 gap-2 px-2 text-sm text-gray-700">
+      <div><span class="font-semibold">Current Project:</span> MLCHC</div>
+      <div><span class="font-semibold">Office Location: </span> Bangalore</div>
+      <div><span class="font-semibold">Work Shift: </span> General</div>
+      <div><span class="font-semibold">Work Mode: </span> Hybrid</div>
+    </div>
+  </div>
+
+  <div class="card my-4">
+
+    <div class="input-field-wrapper">
+      <label for="upload-resume">Upload Resume</label>
+      <input type="file" />
+    </div>
+
+    <div class="input-field-wrapper">
+      <label for="upload-resume">Upload Certificates</label>
+      <input type="file" id="upload-resume">
+    </div>
+  </div>
+
+  <div class="card my-4">
+    <section 
+      class="w-full" 
+      app-table 
+      [tableLabel]="'Skills'" 
+      [headerButtonLabel]="'Add +'"
+      (headerButtonActionClicked)="openSkillModal()" 
+      [tableHeaders]="['Technology', 'Experience']" 
+      [tableData]="updatedSkills()"
+      [tableDataSequence]="['technology', 'experience']"></section>
+  </div>
+
+  @if(isShown()) {
+  <div app-modal [(isShown)]="isShown" [modalTitle]="'Add Skills'">
+    <form 
+      class="w-full space-y-4"
+      add-skills-modal 
+      [(skills)]="skills"
+    ></form>
+  </div>
+  }
+</div>
