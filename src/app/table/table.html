@@ -1,7 +1,7 @@
 <div class="mb-4 flex justify-between items-center">
     <h2 class="sm:text-2xl text-xl font-extrabold">{{tableLabel()}}</h2>
     @if(headerButtonLabel()) {
-        <button class="btn" (click)="headerButtonAction()">{{headerButtonLabel()}}</button>
+        <button class="btn" (click)="headerButtonActionClicked.emit()">{{headerButtonLabel()}}</button>
     } 
     <ng-content select="[th-action-area]"></ng-content>
 </div>

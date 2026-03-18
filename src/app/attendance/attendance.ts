@@ -1,14 +1,39 @@
 import { Component, inject, signal } from "@angular/core";
-import { AttendanceModal } from "../attendance-modal/attendance-modal";
 import { formatDateOnly } from "./attendance.utils";
 import { AttendanceStore } from "./attendance.store";
 import { RouterLink } from "@angular/router";
+import { Modal } from "../modal/modal";
+
+@Component({
+  selector: "form[attendance-modal-form]",
+  templateUrl: "./attendance-modal-form.html",
+  styleUrl: "./attendance.scss",
+  host: {
+    "class": "w-full"
+  }
+})
+
+export class AttendanceModalForm {
+  workHours = Array.from({ length: 12 });
+  projects = ["MLCHC", "Quality Now", "SilverBullet", "Internal"];
+  today = new Date();
+
+  maxDate = this.formatDate(this.today);
+  // min date would be prev 5 days
+  minDate = this.formatDate(
+    new Date(this.today.getTime() - 5 * 24 * 60 * 60 * 1000)
+  );
+
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
+  }
+}
 
 @Component({
   selector: "section[attendance-calendar]",
   templateUrl: "./attendance.html",
   styleUrl: "./attendance.scss",
-  imports: [AttendanceModal, RouterLink],
+  imports: [RouterLink, Modal, AttendanceModalForm],
   host: {
     "class": "max-w-[68rem] m-auto p-5"
   }
@@ -80,4 +105,5 @@ export class Attendance {
     const dateOnly = formatDateOnly(new Date(this.today.getFullYear(), this.today.getMonth(), Number(calendarDate)));
     return !!this.attendanceStore.getCurrentEmployeeEntryByDate(dateOnly);
   }
+
 }

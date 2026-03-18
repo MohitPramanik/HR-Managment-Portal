@@ -28,10 +28,13 @@
     </div>
 </div>
 
-<div 
-    app-attendance-modal 
-    [class.hidden!]="!isTimeSheetModelOpen()" 
-    [class.flex]="isTimeSheetModelOpen()" 
-    [(isTimeSheetModelOpen)]="isTimeSheetModelOpen"
-    [(selectedDate)]="selectedDate"
-></div>
+@if(isTimeSheetModelOpen()) {
+    <div
+        app-modal
+        [(isShown)]="isTimeSheetModelOpen"
+        [modalTitle]="'Timesheet'"
+    >
+       <form attendance-modal-form></form>
+    </div>
+}
+

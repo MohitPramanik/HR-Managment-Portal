@@ -19,7 +19,7 @@ interface sidebarOptionsType {
 })
 export class Sidebar {
 
-  role = signal<string>("Employee");
+  role = signal<string>("Admin");
   isSidebarOpen = signal<boolean>(true);
 
   SIDEBAR_KEYS = {
@@ -99,8 +99,8 @@ export class Sidebar {
       title: this.SIDEBAR_KEYS.RECRUITMENT,
       icon: "fa-briefcase",
       children: [
-        { title: "Jobs", path: "/jobs" },
-        { title: "Candidates", path: "/candidates" },
+        { title: "Jobs", path: "/recruitment/jobs" },
+        { title: "Candidates", path: "/recruitment/candidates" },
       ],
     },
     { title: this.SIDEBAR_KEYS.DEPARTMENTS, path: "/departments", icon: "fa-building" },
@@ -110,8 +110,8 @@ export class Sidebar {
       title: this.SIDEBAR_KEYS.SETTINGS,
       icon: "fa-gear",
       children: [
-        { title: "Company Settings", path: "/company-setting" },
-        { title: "User Management", path: "/user/manage" }
+        { title: "Organizations", path: "/company-setting" },
+        { title: "Users", path: "/user/manage" }
       ],
     },
     { title: this.SIDEBAR_KEYS.HOLIDAY, path: "/holiday-list", icon: "fa-snowflake" }

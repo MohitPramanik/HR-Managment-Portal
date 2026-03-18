@@ -1,0 +1,47 @@
+<div class="min-h-full flex items-center justify-center py-4">
+
+  <div class="w-full max-w-md bg-white p-6 rounded-xl shadow-xl" animate.enter="appear-up">
+
+    <h2 class="text-2xl font-semibold text-center mb-5">
+      Create Account
+    </h2>
+
+    <form class="space-y-4">
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Full Name</label>
+        <input type="text" placeholder="Enter your name" class="form-field" autocomplete="off">
+      </div>
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Email</label>
+        <input type="email" placeholder="Enter your email" class="form-field" autocomplete="off">
+      </div>
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Password</label>
+        <input type="password" placeholder="Create password" class="form-field" autocomplete="off">
+      </div>
+
+      <div class="input-field-wrapper">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" placeholder="Confirm password" class="form-field" autocomplete="off">
+      </div>
+
+      <div class="flex items-center gap-2 text-sm">
+        <input type="checkbox" class="h-4 w-4" autocomplete="off">
+        <span>I agree to the Terms & Conditions</span>
+      </div>
+
+      <button class="btn w-full"> Sign Up </button>
+
+    </form>
+
+    <p class="text-sm text-center mt-5">
+      Already have an account?
+      <a routerLink="/login" class="text-blue-700 hover:underline">Login</a>
+    </p>
+
+  </div>
+
+</div>

@@ -1,0 +1,102 @@
+<div class="mt-6 space-y-6">
+
+  <!-- Appearance -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Appearance</h3>
+
+    <div class="input-field-wrapper">
+      <label for="theme" class="block text-sm font-medium mb-1">
+        Theme
+      </label>
+      <select id="theme" class="form-field w-full">
+        <option value="system">System Default</option>
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Time Settings -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Time Settings</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <!-- Time Zone -->
+      <div class="input-field-wrapper">
+        <label for="timezone" class="block text-sm font-medium mb-1">
+          Time Zone
+        </label>
+        <select id="timezone" class="form-field w-full">
+          <option value="gmt-0530">GMT +05:30 (India)</option>
+          <option value="utc">UTC</option>
+          <option value="gmt">GMT</option>
+        </select>
+      </div>
+
+      <!-- Date Format -->
+      <div class="input-field-wrapper">
+        <label for="dateFormat" class="block text-sm font-medium mb-1">
+          Date Format
+        </label>
+        <select id="dateFormat" class="form-field w-full">
+          <option value="dd-mm-yyyy">DD/MM/YYYY</option>
+          <option value="mm-dd-yyyy">MM/DD/YYYY</option>
+          <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+        </select>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Session Settings -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Session Settings</h3>
+
+    <div class="grid gap-4">
+
+      <!-- Auto Logout -->
+      <div class="input-field-wrapper">
+        <label for="autoLogout" class="block text-sm font-medium mb-1">
+          Auto Logout
+        </label>
+        <select id="autoLogout" class="form-field w-full">
+          <option value="15">15 minutes</option>
+          <option value="30">30 minutes</option>
+          <option value="45">45 minutes</option>
+          <option value="60">60 minutes</option>
+        </select>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="flex items-center mt-6 md:mt-0">
+        <input
+          type="checkbox"
+          id="keepLoggedIn"
+          class="h-4 w-4"
+        />
+        <label for="keepLoggedIn" class="ml-2 text-sm">
+          Keep me signed in on this device
+        </label>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Action -->
+  <div class="flex justify-end">
+    <button class="btn px-6 py-2">
+      Save Changes
+    </button>
+  </div>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 type TableCellData = string | [string, string];
 
@@ -29,7 +29,7 @@ export class Table {
   tableLabel = input<string>("Table title");
 
   headerButtonLabel = input<string>();
-  headerButtonAction = input<() => void>();
+  headerButtonActionClicked = output<void>();
 
   // Accepts string array or if want to add class pass [textToDisplay, class] for the element for which it's needed
   tableHeaders = input<TableCellData[]>([]);
@@ -43,7 +43,6 @@ export class Table {
   tableButtonAction = input<() => void>();
 
   isTuple(header: TableCellData): header is [string, string] {
-    console.log(header)
     return Array.isArray(header);
   }
 }

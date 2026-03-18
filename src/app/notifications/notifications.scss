@@ -1,0 +1,127 @@
+.notifications-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .mark-all-btn {
+    font-size: 14px;
+    color: #2563eb;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+
+  .filter {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    cursor: pointer;
+    font-size: 13px;
+
+    &.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    &:hover {
+      background: #e5e7eb;
+    }
+  }
+}
+
+/* Notifications List */
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Single Notification */
+.notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f9fafb;
+  }
+
+  &.unread {
+    border-left: 4px solid #2563eb;
+    background: #eff6ff;
+  }
+
+  .icon {
+    font-size: 18px;
+    margin-top: 2px;
+  }
+
+  .content {
+    flex: 1;
+
+    .message {
+      font-size: 14px;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .time {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  }
+
+  .action-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #6b7280;
+
+    &:hover {
+      color: #111827;
+    }
+  }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: #6b7280;
+
+  p {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,121 @@
+<div class="mt-6 space-y-6">
+
+  <!-- Change Password -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+
+    <div class="space-y-4">
+
+      <div class="input-field-wrapper">
+        <label for="currentPassword" class="block text-sm font-medium mb-1">
+          Current Password
+        </label>
+        <input
+          id="currentPassword"
+          type="password"
+          class="form-field w-full"
+        >
+      </div>
+
+      <div class="input-field-wrapper">
+        <label for="newPassword" class="block text-sm font-medium mb-1">
+          New Password
+        </label>
+        <input
+          id="newPassword"
+          type="password"
+          class="form-field w-full"
+        >
+      </div>
+
+      <div class="input-field-wrapper">
+        <label for="confirmPassword" class="block text-sm font-medium mb-1">
+          Confirm Password
+        </label>
+        <input
+          id="confirmPassword"
+          type="password"
+          class="form-field w-full"
+        >
+      </div>
+
+      <div class="flex justify-end">
+        <button class="btn px-5 py-2">
+          Update Password
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Two-Factor Authentication -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Two-Factor Authentication</h3>
+
+    <div class="input-field-wrapper">
+      <label for="twoFactor" class="block text-sm font-medium mb-1">
+        Status
+      </label>
+      <select id="twoFactor" class="form-field w-full">
+        <option value="enabled">Enable</option>
+        <option value="disabled">Disable</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Active Sessions -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Active Sessions</h3>
+
+    <section
+      class="w-full mb-3"
+      app-table
+      [tableLabel]="'Active Sessions'"
+      [tableHeaders]="['Device', 'Location', 'Last Active']"
+      [tableData]="activeSessions"
+      [tableDataSequence]="['device', 'location', 'lastActive']"
+    ></section>
+
+    <div class="flex justify-end">
+      <button class="btn px-5 py-2 bg-red-600 hover:bg-red-700 text-white">
+        Logout from All Devices
+      </button>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Login Alerts -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Login Alerts</h3>
+
+    <div class="flex items-start gap-2">
+      <input
+        type="checkbox"
+        id="loginAlerts"
+        class="mt-1 h-4 w-4"
+      >
+      <label for="loginAlerts" class="text-sm">
+        Notify me when my account is logged in from a new device
+      </label>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-gray-200">
+
+  <!-- Save -->
+  <div class="flex justify-end">
+    <button class="btn px-6 py-2">
+      Save Changes
+    </button>
+  </div>
+
+</div>

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AttendanceModal } from './attendance-modal';
+import { Settings } from './settings';
 
-describe('AttendanceModal', () => {
-  let component: AttendanceModal;
-  let fixture: ComponentFixture<AttendanceModal>;
+describe('Settings', () => {
+  let component: Settings;
+  let fixture: ComponentFixture<Settings>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AttendanceModal],
+      imports: [Settings],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AttendanceModal);
+    fixture = TestBed.createComponent(Settings);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use "tailwindcss";
-// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
     font-family: "Poppins", sans-serif;
@@ -22,10 +22,81 @@ body {
     border-top: 1px solid #c5c2c2;
 }
 
-button.btn, a.btn {
+button.btn,
+a.btn {
     @apply bg-blue-600 px-5 py-2 text-white text-base hover:opacity-[0.8] cursor-pointer rounded-sm;
+}
+
+button.btn-outline,
+a.btn-outline {
+    @apply border-1 border-blue-600 text-blue-600 px-5 py-2 text-base hover:opacity-[0.8] cursor-pointer rounded-sm;
 }
 
 .empty-table {
     @apply text-center! py-10!;
+}
+
+// form fields
+.input-field-wrapper {
+    @apply flex flex-col text-base gap-1 mb-3 w-full h-max;
+
+    label.form-label {
+        @apply block text-sm font-medium mb-1;
+    }
+
+    .form-input {
+        @apply border-1 border-black px-3 py-1.5 rounded-md min-h-[2.6rem];
+    }
+
+    input:not([type="file"]).form-field {
+        @extend .form-input;
+    }
+
+    .form-field {
+        @extend .form-input;
+        &:not(textarea) {
+            @apply h-[2.6rem];
+        }
+    }
+
+    input[type="file"] {
+        @apply block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100;
+    }
+}
+
+
+@keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-30%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.appear {
+    animation: slide-down 0.3s linear 0s 1 forwards;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.appear-up {
+    animation: slide-up 0.3s linear 0s 1 forwards;
+}
+
+.card {
+  @apply bg-white border border-gray-300 rounded-md p-4 shadow-sm;
 }

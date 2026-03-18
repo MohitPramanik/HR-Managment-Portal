@@ -10,9 +10,17 @@ import { LeaveBalance } from './leave-balance/leave-balance';
 import { AttendanceRecords } from './attendance-records/attendance-records';
 import { SalaryStructurePage } from './salary-structure/salary-structure';
 import { ProfilePage } from './profile/profile';
-import { SettingsPage } from './settings/settings';
 import { CompanySettingPage } from './company-setting/company-setting';
-import { UserManagePage } from './user-manage/user-manage';
+import { GeneralSettings, SecuritySettings, Settings } from './settings/settings';
+import { Notifications } from './notifications/notifications';
+import { Login } from './login/login';
+import { Signup } from './signup/signup';
+import { ForgotPasswordPage } from './forgot-password-page/forgot-password-page';
+import { NotFoundPage } from './not-found-page/not-found-page';
+import { Jobs } from './jobs/jobs';
+import { Candidates } from './candidates/candidates';
+import { Departments } from './departments/departments';
+import { Reports } from './reports/reports';
 
 export const routes: Routes = [
     {
@@ -50,15 +58,39 @@ export const routes: Routes = [
     },
     {
         path: "settings",
-        component: SettingsPage
+        component: Settings,
+        children: [
+            {
+                path: "",
+                component: GeneralSettings,
+                title: "Settings - General"
+            },
+            {
+                path: "security",
+                component: SecuritySettings,
+                title: "Settings - Security"
+            }
+        ]
+    },
+    {
+        path: "notifications",
+        component: Notifications
+    },
+    {
+        path: "login",
+        component: Login
+    },
+    {
+        path: "signup",
+        component: Signup
+    },
+    {
+        path: "password/reset",
+        component: ForgotPasswordPage
     },
     {
         path: "company-setting",
         component: CompanySettingPage
-    },
-    {
-        path: "user/manage",
-        component: UserManagePage
     },
     {
         path: "profile",
@@ -66,19 +98,44 @@ export const routes: Routes = [
     },
     {
         path: "leave",
-        redirectTo: "leave/balance",
-        pathMatch: "full"
+        children: [
+            {
+                path: "apply",
+                component: LeaveApply
+            },
+            {
+                path: "requests",
+                component: LeaveRequests
+            },
+            {
+                path: "balance",
+                component: LeaveBalance
+            },
+        ]
     },
     {
-        path: "leave/apply",
-        component: LeaveApply
+        path: "recruitment",
+        children: [
+            {
+                path: "jobs",
+                component: Jobs
+            },
+            {
+                path: "candidates",
+                component: Candidates
+            }
+        ]
     },
     {
-        path: "leave/requests",
-        component: LeaveRequests
+        path: "departments",
+        component: Departments
     },
     {
-        path: "leave/balance",
-        component: LeaveBalance
+        path: "reports",
+        component: Reports
+    },
+    {
+        path: "**",
+        component: NotFoundPage
     }
 ];

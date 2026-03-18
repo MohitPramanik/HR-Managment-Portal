@@ -1,0 +1,74 @@
+<form action="" class="w-full">
+
+    <div class="input-field-wrapper">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-field" placeholder="Enter candidate name" />
+    </div>
+
+    <div class="input-field-wrapper">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-field" placeholder="Enter email address" />
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+        <div class="input-field-wrapper">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-field" placeholder="Enter phone number" />
+        </div>
+
+        <div class="input-field-wrapper">
+            <label class="form-label">Applied Job</label>
+            <select class="form-field">
+                <option value="">Select job</option>
+                <option>Frontend Developer</option>
+                <option>Backend Developer</option>
+                <option>UI/UX Designer</option>
+                <option>HR Executive</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+        <div class="input-field-wrapper">
+            <label class="form-label">Experience (Years)</label>
+            <input type="number" class="form-field" min="0" value="0" />
+        </div>
+        <div class="input-field-wrapper">
+            <label class="form-label">Experience (Months)</label>
+            <input type="number" class="form-field" min="0" value="0" />
+        </div>
+    </div>
+
+    <div class="input-field-wrapper">
+        <label class="form-label">Status</label>
+        <select class="form-field">
+            <option>Applied</option>
+            <option>Screening</option>
+            <option>Interview</option>
+            <option>Selected</option>
+            <option>Rejected</option>
+        </select>
+    </div>
+
+     <div class="input-field-wrapper">
+            <label class="form-label">Current Location</label>
+            <input type="text" class="form-field" placeholder="eg. Ranchi, Jharkhand" />
+        </div>
+
+    <div class="input-field-wrapper">
+        <label class="form-label">Notes</label>
+        <textarea rows="4" class="form-field" placeholder="Add notes about candidate..."></textarea>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-end gap-3">
+        <button type="button" class="btn-outline">
+            Cancel
+        </button>
+
+        <button type="submit" class="btn">
+            Save Candidate
+        </button>
+    </div>
+
+</form>
