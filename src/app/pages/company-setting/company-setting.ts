@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CompanySettingStore } from './company-setting.store';
+import { Observable } from 'rxjs';
 
 type WeekStart = 'Monday' | 'Sunday';
 type DayCode = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun';
@@ -60,6 +61,13 @@ export class CompanySettingPage {
       sick: s.defaultLeavePolicy.sick,
       casual: s.defaultLeavePolicy.casual,
     });
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if(!this.saved()) {
+      return confirm("You have unsaved changes. Do yuo really want to leave?");
+    }
+    return true;
   }
 
   toggleDay(day: DayCode) {

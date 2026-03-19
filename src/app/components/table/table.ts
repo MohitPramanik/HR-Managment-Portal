@@ -27,20 +27,16 @@ export class TableHeaderContentArea {}
 export class Table {
 
   tableLabel = input<string>("Table title");
-
   headerButtonLabel = input<string>();
   headerButtonActionClicked = output<void>();
-
   // Accepts string array or if want to add class pass [textToDisplay, class] for the element for which it's needed
   tableHeaders = input<TableCellData[]>([]);
-
   tableData = input<any[]>([]);
-
   // Accepts string array or if want to add class pass [textToDisplay, class] for the element for which it's needed
   tableDataSequence = input<TableCellData[]>([]); // if want increasing sequence in column, pass '#' in data
-
   tableButtonLabel = input<string>();
   tableButtonAction = input<() => void>();
+  emptyTableMessage = input<string>("No Records Found");
 
   isTuple(header: TableCellData): header is [string, string] {
     return Array.isArray(header);

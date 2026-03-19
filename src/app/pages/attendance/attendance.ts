@@ -3,6 +3,7 @@ import { formatDateOnly } from "./attendance.utils";
 import { AttendanceStore } from "./attendance.store";
 import { RouterLink } from "@angular/router";
 import { Modal } from "../../components/modal/modal";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "form[attendance-modal-form]",
@@ -23,9 +24,19 @@ export class AttendanceModalForm {
   minDate = this.formatDate(
     new Date(this.today.getTime() - 5 * 24 * 60 * 60 * 1000)
   );
+  isSaved = false;
+
 
   formatDate(date: Date): string {
     return date.toISOString().split('T')[0];
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (!this.isSaved) {
+      return confirm('You have unsaved changes. Do you really want to leave');
+    }
+
+    return true;
   }
 }
 
@@ -105,5 +116,6 @@ export class Attendance {
     const dateOnly = formatDateOnly(new Date(this.today.getFullYear(), this.today.getMonth(), Number(calendarDate)));
     return !!this.attendanceStore.getCurrentEmployeeEntryByDate(dateOnly);
   }
+
 
 }

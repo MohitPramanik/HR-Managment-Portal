@@ -9,26 +9,26 @@
     <form class="space-y-4" (ngSubmit)="onSubmit()">
 
       <div class="input-field-wrapper">
-        <label class="form-label">Email</label>
-        <input type="email" placeholder="Enter your email" name="email" [(ngModel)]="email" class="form-field" autocomplete="off">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" placeholder="Enter your email" id="email" name="email" [(ngModel)]="email" class="form-field" autocomplete="off">
       </div>
 
       <div class="input-field-wrapper">
-        <label class="form-label">Password</label>
-        <input type="password" placeholder="Enter your password" name="password" [(ngModel)]="password" class="form-field"
+        <label for="password" class="form-label">Password</label>
+        <input type="password" placeholder="Enter your password" id="password" name="password" [(ngModel)]="password" class="form-field"
           autocomplete="off">
       </div>
 
       <div class="input-field-wrapper">
-        <label class="flex items-center gap-2 text-sm">
-          <input type="checkbox" class="h-4 w-4" autocomplete="off">
+        <label for="remember-box" class="flex items-center gap-2 text-sm">
+          <input type="checkbox" class="h-4 w-4" id="remember-box" autocomplete="off">
           Remember me
         </label>
 
       </div>
 
       @if(errorMessage) {
-      <p class="text-center text-red-400 text-xs">{{errorMessage}}</p>
+        <p class="text-center text-red-400 text-xs">{{errorMessage}}</p>
       }
       <button class="btn w-full">Login</button>
 

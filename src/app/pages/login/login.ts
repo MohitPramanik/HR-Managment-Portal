@@ -4,9 +4,12 @@ import { AuthService } from '../../services/auth/auth-service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
+  selector: 'div[app-login]',
   imports: [RouterLink, FormsModule],
   templateUrl: './login.html',
+  host: {
+    "class": "h-full"
+  }
 })
 export class Login {
   email: string = "";

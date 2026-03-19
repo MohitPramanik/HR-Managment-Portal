@@ -1,9 +1,8 @@
 @use "tailwindcss";
 
 .sidebar {
+    @apply bg-blue-400 md:relative absolute left-0 overflow-y-auto h-full w-[14rem];
     transition: all 0.5s;
-    position: relative;
-    overflow: auto;
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -59,7 +58,7 @@
     }
 
     .toggle-btn {
-        transition: width 0.5s;
+        transition: all 0.5s;
     }
 
     details a {
@@ -92,7 +91,7 @@
     }
 
     .sidebar-list-item {
-        @apply bg-blue-400 text-white border-b-1 border-black hover:bg-blue-600 cursor-pointer;
+        @apply text-white border-b-1 border-black hover:bg-blue-600 cursor-pointer;
 
         a {
             transition: padding-left 0.2s linear;

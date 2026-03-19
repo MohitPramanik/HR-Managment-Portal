@@ -2,36 +2,31 @@
 
 .table-wrapper {
     border: 1px solid #ddd;
+    @apply sm:rounded-[10px] rounded-lg;
 }
 
 .table {
-    width: 100%;
+    @apply sm:text-base text-sm w-full bg-white;
     min-width: max-content;
     border-collapse: collapse;
-    background: white;
+
+    thead {
+        background: #6a58ff4f;
+    }
+
+    tbody tr:hover {
+        background-color: #5a00ff12;
+
+    }
 
     th,
     td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #b2caff;
-    }
-
-    ::ng-deep td {
-        border: 1px solid #ddd;
-        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 1rem;
         text-align: left;
     }
 }
 
 .table-bottom-btn {
-    background: #3939ba;
-    color: white;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+    @apply w-full rounded-none bg-[#714efff7];
 }

@@ -1,5 +1,7 @@
-import { Component, computed, input, Signal, signal } from '@angular/core';
+import { Component, computed, inject, input, Signal, signal } from '@angular/core';
 import { Table } from '../../components/table/table';
+import { UserRole } from '../../interfaces/user';
+import { AuthService } from '../../services/auth/auth-service';
 
 interface DashBoardCard {
   title: string;
@@ -7,7 +9,6 @@ interface DashBoardCard {
   subTitle?: string;
 }
 
-type Role = "Employee" | "Manager" | "HR" | "Admin" | "SuperAdmin";
 type CardDataSelection = "self" | "team";
 
 interface Holidays {
@@ -28,6 +29,8 @@ interface Holidays {
     </p>
   `,
   styleUrl: './dashboard.scss',
+  host: {
+  }
 })
 
 export class DashboardCard {
@@ -43,8 +46,15 @@ export class DashboardCard {
 })
 export class Dashboard {
 
-  role = signal<Role>("Manager");
+  private auth = inject(AuthService);
+
+  role = signal<UserRole>("employee");
   cardDataSelection = signal<CardDataSelection>("self"); // Only Managers, HRs and Admin can udpate
+
+
+  constructor() {
+    this.role.set(this.auth.getCurrentUser()?.role ?? "employee")
+  }
 
   // for each employee including managers, hrs, ... as well
   employeeCardData: DashBoardCard[] = [
@@ -97,23 +107,23 @@ export class Dashboard {
   // Card data which changes according to role
   cardData: Signal<DashBoardCard[]> = computed(() => {
     if (
-      (this.role() === "Employee") ||
-      (this.role() === "Manager" && this.cardDataSelection() === "self") ||
-      (this.role() === "HR" && this.cardDataSelection() === "self") ||
-      (this.role() === "Admin" && this.cardDataSelection() === "self")
+      (this.role() === "employee") ||
+      (this.role() === "manager" && this.cardDataSelection() === "self") ||
+      (this.role() === "hr" && this.cardDataSelection() === "self") ||
+      (this.role() === "admin" && this.cardDataSelection() === "self")
     ) {
       return this.employeeCardData;
     }
 
-    else if (this.role() === "Manager" && this.cardDataSelection() === "team") {
+    else if (this.role() === "manager" && this.cardDataSelection() === "team") {
       return this.teamCardData;
     }
 
-    else if (this.role() === "HR" && this.cardDataSelection() === "team") {
+    else if (this.role() === "hr" && this.cardDataSelection() === "team") {
       return this.hrCardData;
     }
 
-    else if (this.role() === "Admin" && this.cardDataSelection() === "team") {
+    else if (this.role() === "admin" && this.cardDataSelection() === "team") {
       return this.adminCardData;
     }
 

@@ -1,5 +1,6 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth-service';
 
 interface sidebarOptionsType {
   title: string;
@@ -17,10 +18,31 @@ interface sidebarOptionsType {
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })
-export class Sidebar {
+export class Sidebar implements OnInit {
 
-  role = signal<string>("Admin");
+  private auth = inject(AuthService);
+  role = signal<string>("employee");
+
   isSidebarOpen = signal<boolean>(true);
+
+  checkScreen() {
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const widthInPx = window.innerWidth;
+
+    const breakpoint = 48 * rem; // 48rem → px
+
+    return widthInPx < breakpoint;
+  }
+
+  ngOnInit(): void {
+    this.role.set(this.auth.getCurrentUser()?.role ?? "employee")
+
+    // to make the sidebar close by default in small screen
+    if(this.checkScreen()) {
+      this.isSidebarOpen.set(false);
+    }
+  }
+
 
   SIDEBAR_KEYS = {
     DASHBOARD: "Dashboard",
@@ -36,7 +58,7 @@ export class Sidebar {
     HOLIDAY: "Holiday Calendar"
   };
 
-  // Admin will have all the options present
+  // SuperAdmin will have all the options present
   employeeAccess = [
     this.SIDEBAR_KEYS.DASHBOARD,
     this.SIDEBAR_KEYS.EMPLOYEES,
@@ -118,16 +140,16 @@ export class Sidebar {
   ]
 
   filteredOptions = computed(() => {
-    if (this.role() === "Manager") {
+    if (this.role() === "manager") {
       return this.sidebarOptions.filter((item) => this.managerAccess.includes(item.title))
     }
-    else if (this.role() === "Employee") {
+    else if (this.role() === "employee") {
       return this.sidebarOptions.filter((item) => this.employeeAccess.includes(item.title))
     }
-    else if (this.role() === "HR") {
+    else if (this.role() === "hr") {
       return this.sidebarOptions.filter((item) => this.hrAccess.includes(item.title))
     }
-    else if (this.role() === "Admin") {
+    else if (this.role() === "admin" || this.role() === "superAdmin") {
       return this.sidebarOptions
     }
     else {

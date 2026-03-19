@@ -1,48 +1,64 @@
 <div class="mb-4 flex justify-between items-center">
+
+    <!-- table component head part -->
     <h2 class="sm:text-2xl text-xl font-extrabold">{{tableLabel()}}</h2>
+
     @if(headerButtonLabel()) {
         <button class="btn" (click)="headerButtonActionClicked.emit()">{{headerButtonLabel()}}</button>
-    } 
+    }
+
     <ng-content select="[th-action-area]"></ng-content>
+
 </div>
 
+<!-- content between table head part and table -->
 <ng-content select="[th-content-area]"></ng-content>
 
-<div class="w-full overflow-auto table-wrapper">
-    <table class="table table-auto overflow-x-scroll">
-        <thead>
-            <tr>
-                @for(tableHeader of tableHeaders(); track tableHeader) {
+<!-- Table area -->
+<div class="w-full overflow-hidden table-wrapper">
+    <div class="w-full overflow-auto">
+
+        <table class="table table-auto overflow-x-scroll">
+
+            <thead>
+                <tr>
+                    @for(tableHeader of tableHeaders(); track tableHeader) {
                     <th [class]="isTuple(tableHeader) ? tableHeader[1] : ''">
                         {{ isTuple(tableHeader) ? tableHeader[0] : tableHeader }}
                     </th>
-                }
-            </tr>
-        </thead>
-        <tbody class="table-body">
-            @for(data of tableData(); track $index; let i = $index) {
-                <tr>
-                    @for(item of tableDataSequence(); track item) {
-                        <td [class]="isTuple(item) ? item[1] : ''">
-                            <!-- if item = '#', display index(i+1), 
-                                else check if it's tuple then display 0th index 
-                                or if it's string then display item itself -->
-                            {{ item === "#" ? i+1 : ( isTuple(item) ? ( item[0] === "#" ? i+1 : data[item[0]]) : data[item]) }}
-                        </td>
                     }
                 </tr>
-            } @empty {
+            </thead>
+
+            <tbody class="table-body">
+                @for(data of tableData(); track $index; let i = $index) {
+                <tr>
+                    @for(item of tableDataSequence(); track item) {
+                    <td [class]="isTuple(item) ? item[1] : ''">
+                        <!-- if item = '#', display index(i+1), 
+                                else check if it's tuple then display 0th index 
+                                or if it's string then display item itself -->
+                        {{ item === "#" ? i+1 : ( isTuple(item) ? ( item[0] === "#" ? i+1 : data[item[0]]) : data[item])
+                        }}
+                    </td>
+                    }
+                </tr>
+                } @empty {
                 <tr>
                     <td [attr.colspan]="tableHeaders().length" class="empty-table">
-                        No Records Found
+                        {{emptyTableMessage()}}
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- table bottom button -->
+    @if(tableButtonLabel() && tableData().length) {
+        <button class="btn table-bottom-btn" (click)="tableButtonAction()">{{tableButtonLabel()}}</button>
+    }
+
 </div>
-
-
-@if(tableButtonLabel() && tableData().length) {
-    <button class="table-bottom-btn" (click)="tableButtonAction()">{{tableButtonLabel()}}</button>
-}

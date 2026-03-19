@@ -20,17 +20,27 @@ body {
 .section-separator {
     border-bottom: 0;
     border-top: 1px solid #c5c2c2;
+
+    @apply my-8 w-full;
 }
 
 button.btn,
 a.btn {
-    @apply bg-blue-600 px-5 py-2 text-white text-base hover:opacity-[0.8] cursor-pointer rounded-sm;
+    @apply bg-blue-600 text-white font-medium sm:text-base text-sm
+           px-5 py-2 rounded-md cursor-pointer
+           hover:bg-blue-700 active:bg-blue-800 
+           transition duration-200 ease-in-out;
+            
 }
 
 button.btn-outline,
 a.btn-outline {
-    @apply border-1 border-blue-600 text-blue-600 px-5 py-2 text-base hover:opacity-[0.8] cursor-pointer rounded-sm;
+    @apply border border-blue-600 text-blue-600 font-medium sm:text-base text-sm
+         px-5 py-2 rounded-md cursor-pointer
+         hover:bg-blue-50 active:bg-blue-100
+         transition duration-200 ease-in-out;
 }
+
 
 .empty-table {
     @apply text-center! py-10!;
@@ -45,7 +55,7 @@ a.btn-outline {
     }
 
     .form-input {
-        @apply border-1 border-black px-3 py-1.5 rounded-md min-h-[2.6rem];
+        @apply border-1 border-black px-3 py-1.5 rounded-md min-h-[2.6rem] focus:outline-none focus:ring-2 focus:ring-blue-500;
     }
 
     input:not([type="file"]).form-field {
