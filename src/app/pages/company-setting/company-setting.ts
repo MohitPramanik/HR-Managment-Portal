@@ -23,8 +23,8 @@ type CompanyForm = FormGroup<{
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './company-setting.html',
   styleUrl: './company-setting.scss',
-  host: { class: 'max-w-[68rem] m-auto p-5' },
 })
+
 export class CompanySettingPage {
   readonly store = inject(CompanySettingStore);
 

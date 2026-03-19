@@ -1,26 +1,20 @@
+<section
+    app-table
+    [tableLabel]="'Jobs'"
+    [headerButtonLabel]="'Create Job'"
+    (headerButtonActionClicked)="openCreateJobModal()"
+    [tableHeaders]="['Title', 'Department', 'Location', 'Status', 'Candidates', 'Actions']"
+    [tableData]="jobs"
+    [tableDataSequence]="['title', 'department', 'location','status', 'candidateCount']"
+>
+</section>
 
-<div class="p-6">
-
-    <section
-        app-table
-        [tableLabel]="'Jobs'"
-        [headerButtonLabel]="'Create Job'"
-        (headerButtonActionClicked)="openCreateJobModal()"
-        [tableHeaders]="['Title', 'Department', 'Location', 'Status', 'Candidates', 'Actions']"
-        [tableData]="jobs"
-        [tableDataSequence]="['title', 'department', 'location','status', 'candidateCount']"
+@if(isCreateJobModalOpen()) {
+    <div
+        app-modal
+        [modalTitle]="'Create Job'"
+        [(isShown)]="isCreateJobModalOpen"
     >
-    </section>
-
-    @if(isCreateJobModalOpen()) {
-        <div
-            app-modal
-            [modalTitle]="'Create Job'"
-            [(isShown)]="isCreateJobModalOpen"
-        >
-            <div create-job-modal class="w-full"></div>
-        </div>
-    }
-
-
-</div>
+        <div create-job-modal class="w-full"></div>
+    </div>
+}

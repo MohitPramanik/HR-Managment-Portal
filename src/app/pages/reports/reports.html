@@ -1,49 +1,49 @@
-<div class="p-6 max-w-6xl mx-auto space-y-6">
 
-  <!-- Header -->
-  <h1 class="text-2xl font-semibold mb-4">Reports</h1>
+<!-- Header -->
+<h1 class="text-2xl font-semibold mb-4">Reports</h1>
 
-  <!-- Key Metrics Cards -->
-  <div class="grid grid-cols-4 gap-4">
-    <div class="bg-white rounded-xl shadow-md p-4 text-center">
-      <p class="text-gray-500 text-sm">Total Employees</p>
-      <h2 class="text-2xl font-bold">48</h2>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-4 text-center">
-      <p class="text-gray-500 text-sm">Open Positions</p>
-      <h2 class="text-2xl font-bold">12</h2>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-4 text-center">
-      <p class="text-gray-500 text-sm">New Hires This Month</p>
-      <h2 class="text-2xl font-bold">7</h2>
-    </div>
-    <div class="bg-white rounded-xl shadow-md p-4 text-center">
-      <p class="text-gray-500 text-sm">Candidates in Pipeline</p>
-      <h2 class="text-2xl font-bold">34</h2>
-    </div>
+<!-- Key Metrics Cards -->
+<div class="grid sm:grid-cols-4 grid-cols-2 gap-4">
+  <div class="bg-white rounded-xl shadow-md p-4 text-center">
+    <p class="text-gray-500 text-sm">Total Employees</p>
+    <h2 class="text-2xl font-bold">48</h2>
   </div>
-
- 
-  <section
-        app-table
-        [tableLabel]="'Candidate Pipeline'"
-        [tableHeaders]="['Candidate', 'Job Title', 'Department', 'Stage', 'Status']"
-        [tableData]="candidatesReport"
-        [tableDataSequence]="['name', 'jobTitle', 'department','stage', 'status']"
-    ></section>
-
-  <section
-        app-table
-        [tableLabel]="'Departments Summary'"
-        [tableHeaders]="['Department', 'Total Employees', 'Open Positions', 'Active Jobs']"
-        [tableData]="departmentsReport"
-        [tableDataSequence]="['name', 'totalEmployees', 'openPositions','activeJobs']"
-    ></section>
-
-  <!-- Export Buttons -->
-  <div class="flex justify-end gap-3">
-    <button class="btn-outline">Export CSV</button>
-    <button class="btn-outline">Export PDF</button>
+  <div class="bg-white rounded-xl shadow-md p-4 text-center">
+    <p class="text-gray-500 text-sm">Open Positions</p>
+    <h2 class="text-2xl font-bold">12</h2>
   </div>
+  <div class="bg-white rounded-xl shadow-md p-4 text-center">
+    <p class="text-gray-500 text-sm">New Hires This Month</p>
+    <h2 class="text-2xl font-bold">7</h2>
+  </div>
+  <div class="bg-white rounded-xl shadow-md p-4 text-center">
+    <p class="text-gray-500 text-sm">Candidates in Pipeline</p>
+    <h2 class="text-2xl font-bold">34</h2>
+  </div>
+</div>
 
+<hr class="section-separator">
+
+<section
+      app-table
+      [tableLabel]="'Candidate Pipeline'"
+      [tableHeaders]="['Candidate', 'Job Title', 'Department', 'Stage', 'Status']"
+      [tableData]="candidatesReport"
+      [tableDataSequence]="['name', 'jobTitle', 'department','stage', 'status']"
+  ></section>
+
+<hr class="section-separator">
+
+<section
+      app-table
+      [tableLabel]="'Departments Summary'"
+      [tableHeaders]="['Department', 'Total Employees', 'Open Positions', 'Active Jobs']"
+      [tableData]="departmentsReport"
+      [tableDataSequence]="['name', 'totalEmployees', 'openPositions','activeJobs']"
+  ></section>
+
+<!-- Export Buttons -->
+<div class="flex justify-end gap-3 mt-4">
+  <button class="btn-outline">Export CSV</button>
+  <button class="btn-outline">Export PDF</button>
 </div>

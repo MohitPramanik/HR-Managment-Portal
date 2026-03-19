@@ -1,23 +1,19 @@
-<div class="p-6">
+<section
+    app-table
+    [tableLabel]="'Departments'"
+    [headerButtonLabel]="'Add'"
+    (headerButtonActionClicked)="openCreateDepartmentModal()"
+    [tableHeaders]="['Department Name', 'Head of Department', 'No. of Employees', 'Open Positions', 'Status', 'Actions']"
+    [tableData]="departments"
+    [tableDataSequence]="['name', 'head', 'employeeCount','openPositions', 'status', '']"
+></section>
 
-    <section
-        app-table
-        [tableLabel]="'Departments'"
-        [headerButtonLabel]="'Add Department'"
-        (headerButtonActionClicked)="openCreateDepartmentModal()"
-        [tableHeaders]="['Department Name', 'Head of Department', 'No. of Employees', 'Open Positions', 'Status', 'Actions']"
-        [tableData]="departments"
-        [tableDataSequence]="['name', 'head', 'employeeCount','openPositions', 'status', '']"
-    ></section>
-
-    @if(isCreateDepartmentModalOpen()) {
-        <div
-            app-modal
-            [modalTitle]="'Create Department'"
-            [(isShown)]="isCreateDepartmentModalOpen"
-        >
-            <div create-department-modal class="w-full"></div>
-        </div>
-    }
-
-</div>
+@if(isCreateDepartmentModalOpen()) {
+    <div
+        app-modal
+        [modalTitle]="'Create Department'"
+        [(isShown)]="isCreateDepartmentModalOpen"
+    >
+        <div create-department-modal class="w-full"></div>
+    </div>
+}

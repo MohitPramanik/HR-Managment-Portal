@@ -32,8 +32,8 @@ function fromGroup(g: ComponentGroup): SalaryComponent {
   imports: [ReactiveFormsModule],
   templateUrl: './salary-structure.html',
   styleUrl: './salary-structure.scss',
-  host: { class: 'max-w-[68rem] m-auto p-5' },
 })
+
 export class SalaryStructurePage {
   readonly store = inject(SalaryStructureStore);
 
