@@ -27,19 +27,18 @@ body {
 
 button.btn,
 a.btn {
-    @apply bg-blue-600 text-white font-medium sm:text-base text-sm
-           px-5 py-2 rounded-md cursor-pointer
-           hover:bg-blue-700 active:bg-blue-800 
-           transition duration-200 ease-in-out;
-            
+    @apply bg-blue-600 text-white font-medium sm:text-base text-sm px-5 py-2 rounded-md cursor-pointer hover:bg-blue-700 active:bg-blue-800 transition duration-200 ease-in-out;
+
+}
+
+button.btn:disabled {
+    background: gray;
+    cursor: not-allowed;
 }
 
 button.btn-outline,
 a.btn-outline {
-    @apply border border-blue-600 text-blue-600 font-medium sm:text-base text-sm
-         px-5 py-2 rounded-md cursor-pointer
-         hover:bg-blue-50 active:bg-blue-100
-         transition duration-200 ease-in-out;
+    @apply border border-blue-600 text-blue-600 font-medium sm:text-base text-sm px-5 py-2 rounded-md cursor-pointer hover:bg-blue-50 active:bg-blue-100 transition duration-200 ease-in-out;
 }
 
 
@@ -56,9 +55,7 @@ a.btn-outline {
     }
 
     .form-input {
-        @apply border-1 border-black px-3 py-1.5 
-            rounded-md min-h-[2.6rem]  bg-white
-            focus:outline-none focus:ring-2 focus:ring-blue-500;
+        @apply border-1 border-black px-3 py-1.5 rounded-md min-h-[2.6rem] bg-white focus:outline-none focus:ring-2 focus:ring-blue-500;
     }
 
     input:not([type="file"]).form-field {
@@ -67,6 +64,7 @@ a.btn-outline {
 
     .form-field {
         @extend .form-input;
+
         &:not(textarea) {
             @apply h-[2.6rem];
         }
@@ -111,7 +109,7 @@ a.btn-outline {
 }
 
 .card {
-  @apply bg-white border border-gray-300 rounded-md p-4 shadow-sm;
+    @apply bg-white border border-gray-300 rounded-md p-4 shadow-sm;
 }
 
 .filter-section {

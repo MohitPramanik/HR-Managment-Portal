@@ -10,13 +10,31 @@
 
       <div class="input-field-wrapper">
         <label for="email" class="form-label">Email</label>
-        <input type="email" placeholder="Enter your email" id="email" formControlName="email" class="form-field" autocomplete="on">
+        <input type="email" placeholder="Enter your email" id="email" formControlName="email" class="form-field" required autocomplete="on">
+
+        @if(email?.invalid && (email?.dirty || email?.touched)) {
+          @if(email?.hasError('required')) {
+            <p class="text-red-500 text-xs">This field is required</p>
+          }
+          @else if(email?.hasError('email')) {
+            <p class="text-red-500 text-xs">Please enter a valid email</p>
+          }
+        } 
       </div>
 
       <div class="input-field-wrapper">
         <label for="password" class="form-label">Password</label>
         <input type="password" placeholder="Enter your password" id="password" formControlName="password" class="form-field"
           autocomplete="off">
+          
+          @if(password?.invalid && (password?.dirty || password?.touched)) {
+            @if(password?.hasError('required')) {
+              <p class="text-red-500 text-xs">This field is required</p>
+            }
+            @else if(password?.hasError('minlength')) {
+              <p class="text-red-500 text-xs">Password must be at least 6 characters</p>
+            }
+          }
       </div>
 
       <div class="input-field-wrapper">
@@ -27,10 +45,7 @@
 
       </div>
 
-      @if(errorMessage) {
-        <p class="text-center text-red-400 text-xs">{{errorMessage}}</p>
-      }
-      <button class="btn w-full">Login</button>
+      <button [disabled]="loginForm.invalid" class="btn w-full">Login</button>
 
     </form>
 

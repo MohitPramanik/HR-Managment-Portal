@@ -10,30 +10,62 @@
 
       <div class="input-field-wrapper">
         <label for="username" class="form-label">Full Name</label>
-        <input type="text" placeholder="Enter your name" id="username" formControlName="username" class="form-field" autocomplete="off">
+        <input type="text" placeholder="Enter your name" id="username" formControlName="username" class="form-field"
+          autocomplete="off">
+
+        @if(showError('username', 'required')) {
+          <p class="text-red-500 text-xs">This field is required</p>
+        }
+        @else if(showError('username', 'minlength')) {
+          <p class="text-red-500 text-xs">Name must be at least 3 characters</p>
+        }
       </div>
 
       <div class="input-field-wrapper">
         <label for="email" class="form-label">Email</label>
-        <input type="email" placeholder="Enter your email" id="email" formControlName="email" class="form-field" autocomplete="on">
+        <input type="email" placeholder="Enter your email" id="email" formControlName="email" class="form-field"
+          autocomplete="on">
+
+        @if(showError('email', 'required')) {
+          <p class="text-red-500 text-xs">This field is required</p>
+        }
+        @else if(showError('email', 'email')) {
+          <p class="text-red-500 text-xs">Please enter a valid email</p>
+        }
       </div>
 
       <div class="input-field-wrapper">
         <label for="password" class="form-label">Password</label>
-        <input type="password" placeholder="Create password" id="password" formControlName="password" class="form-field" autocomplete="off">
+        <input type="password" placeholder="Create password" id="password" formControlName="password" class="form-field"
+          autocomplete="off">
+
+        @if(showError('password', 'required')) {
+          <p class="text-red-500 text-xs">This field is required</p>
+        }
+        @else if(showError('password', 'minlength')) {
+          <p class="text-red-500 text-xs">Password must be at least 6 characters</p>
+        }
       </div>
 
       <div class="input-field-wrapper">
         <label for="confirm-password" class="form-label">Confirm Password</label>
-        <input type="password" placeholder="Confirm password" id="confirm-password" formControlName="confirmPassword" class="form-field" autocomplete="off">
+        <input type="password" placeholder="Confirm password" id="confirm-password" formControlName="confirmPassword"
+          class="form-field" autocomplete="off">
+        @if(showError('confirmPassword', 'required')) {
+          <p class="text-red-500 text-xs">This field is required</p>
+        }
+        @else if(signUpForm.errors?.['passwordMismatch'] && signUpForm.get('confirmPassword')?.touched) {
+          <p class="text-red-500 text-xs">Passwords do not match</p>
+        }
       </div>
 
       <div class="flex items-center gap-2 text-sm">
         <input type="checkbox" class="h-4 w-4" formControlName="isAgree" autocomplete="off">
         <span>I agree to the Terms & Conditions</span>
+
       </div>
 
-      <button class="btn w-full"> Sign Up </button>
+      <button [disabled]="signUpForm.invalid" class="btn w-full"> Sign Up </button>
 
     </form>
 

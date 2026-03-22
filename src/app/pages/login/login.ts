@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth-service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'div[app-login]',
@@ -13,20 +13,34 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 })
 export class Login {
   loginForm = new FormGroup({
-    email: new FormControl(""),
-    password: new FormControl(""),
+    email: new FormControl("", [ 
+      Validators.required,
+      Validators.email
+    ]),
+    password: new FormControl("", [ 
+      Validators.required,
+      Validators.minLength(6)
+    ]),
     remember: new FormControl(false)
   })
   errorMessage: string = "";
 
   private auth = inject(AuthService);
 
+  get email() {
+    return this.loginForm.get("email")
+  }
+
+  get password() {
+    return this.loginForm.get("password")
+  }
+
   onSubmit(): void {
     console.log(this.loginForm.value)
-    const {email, password} = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
     const isUser = this.auth.login(email ?? "", password ?? "");
 
-    if(isUser) {
+    if (isUser) {
       this.errorMessage = "";
 
       // navigate to dashboard
