@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth-service';
 
 @Component({
   selector: 'app-signup',
@@ -10,9 +11,11 @@ import { RouterLink } from '@angular/router';
 })
 export class Signup {
 
+  private auth = inject(AuthService);
   private formBuilder = inject(FormBuilder);
+  readonly errorMessage = this.auth.errorMessage;
 
-  signUpForm = this.formBuilder.group({
+  signUpForm = this.formBuilder.nonNullable.group({
     username: ["", [
       Validators.required,
       Validators.minLength(3)
@@ -52,6 +55,7 @@ export class Signup {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value)
+    const {username, email, password} = this.signUpForm.getRawValue();
+    this.auth.signup(username, email, password);
   }
 }

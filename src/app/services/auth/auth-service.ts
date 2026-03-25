@@ -1,6 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UserRole } from '../../interfaces/user';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +18,45 @@ export class AuthService {
 
   private currentUser: User | null = null;
   private router = inject(Router);
+  errorMessage = signal<string>("");
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): boolean {
-    const user = this.users.find(
-      (u) => u.email === email && u.password === password
-    );
+  signup(name: string, email: string, password: string): void {
+    this.http.post("http://localhost:8000/api/user/auth/register", {
+      name, email, password
+    }).subscribe({
+      next: (result: any) => {
+        this.errorMessage.set("");
+        this.login(email, password);
+      },
+      error: (error: any) => {
+        console.log(error);
+         this.errorMessage.set(error.error.message);
+      }
+    })
+  }
 
-    if (user) {
-      this.currentUser = user;
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      return true;
-    }
+  login(email: string, password: string): void{
 
-    return false;
-
+    this.http.post("http://localhost:8000/api/user/auth/login", {
+      email,
+      password
+    }).subscribe({
+      next: (result: any) => {
+        this.errorMessage.set("");
+        console.log('res', result);
+        this.currentUser = result.data;
+        localStorage.setItem('currentUser', JSON.stringify(result.data));
+        this.navigateByUrl("/dashboard");
+        return true;
+      },
+      error: (error: any) => {
+        console.log("Error", error.error.message);
+        this.errorMessage.set(error.error.message);
+        return false;
+      }
+    })
   }
 
   logout(): void {
@@ -58,7 +82,7 @@ export class AuthService {
   }
 
   hasRole(role: UserRole): boolean {
-    if(Array.isArray(role)) {
+    if (Array.isArray(role)) {
       return role.includes(this.getCurrentUser?.()?.role)
     }
     return this.getCurrentUser()?.role === role;

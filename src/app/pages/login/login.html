@@ -45,6 +45,10 @@
 
       </div>
 
+      @if(errorMessage()) {
+        <p class="form-error-msg text-center mb-2">{{errorMessage()}}</p>
+      }
+      
       <button [disabled]="loginForm.invalid" class="btn w-full">Login</button>
 
     </form>

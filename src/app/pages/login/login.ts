@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth-service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'div[app-login]',
@@ -12,21 +12,23 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   }
 })
 export class Login {
-  loginForm = new FormGroup({
-    email: new FormControl("", [ 
+
+  private auth = inject(AuthService);
+  private formBuilder = inject(FormBuilder);
+  readonly errorMessage = this.auth.errorMessage;
+
+  loginForm = this.formBuilder.nonNullable.group({
+    email: ["", [
       Validators.required,
       Validators.email,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
-    ]),
-    password: new FormControl("", [ 
+    ]],
+    password: ["", [
       Validators.required,
       Validators.minLength(6)
-    ]),
-    remember: new FormControl(false)
+    ]],
+    remember: [false]
   })
-  errorMessage: string = "";
-
-  private auth = inject(AuthService);
 
   get email() {
     return this.loginForm.get("email")
@@ -37,20 +39,7 @@ export class Login {
   }
 
   onSubmit(): void {
-    console.log(this.loginForm.value)
-    const { email, password } = this.loginForm.value;
-    const isUser = this.auth.login(email ?? "", password ?? "");
-
-    if (isUser) {
-      this.errorMessage = "";
-
-      // navigate to dashboard
-      this.auth.navigateByUrl("/dashboard");
-
-    }
-    else {
-      // display error message on login fail
-      this.errorMessage = "Invalid email or password. Please try again.";
-    }
+    const { email, password } = this.loginForm.getRawValue();
+    this.auth.login(email, password);
   }
 }
