@@ -1,7 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Table } from '../../components/table/table';
 import { Modal } from '../../components/modal/modal';
 import { CreateDepartmentModal } from './create-department-modal/create-department-modal';
+import { HttpClient } from '@angular/common/http';
+
+interface Department {
+  name: string;
+  head: string;
+  employeesCount: number,
+  openPositions: number,
+  status: "active" | "inactive"
+}
+
+interface ApiResponse {
+  status: string;
+  data: [];
+}
 
 @Component({
   selector: 'app-departments',
@@ -9,49 +23,34 @@ import { CreateDepartmentModal } from './create-department-modal/create-departme
   templateUrl: './departments.html',
   styleUrl: './departments.scss',
 })
-export class Departments {
-  isCreateDepartmentModalOpen = signal<boolean>(false);
+export class Departments implements OnInit {
 
-  departments = [
-    {
-      "id": 1,
-      "name": "Engineering",
-      "head": "Amit Sharma",
-      "employeeCount": 25,
-      "openPositions": 3,
-      "status": "Active"
-    },
-    {
-      "id": 2,
-      "name": "Design",
-      "head": "Priya Verma",
-      "employeeCount": 10,
-      "openPositions": 2,
-      "status": "Active"
-    },
-    {
-      "id": 3,
-      "name": "Human Resources",
-      "head": "Rahul Singh",
-      "employeeCount": 5,
-      "openPositions": 1,
-      "status": "Active"
-    },
-    {
-      "id": 4,
-      "name": "Marketing",
-      "head": null,
-      "employeeCount": 8,
-      "openPositions": 0,
-      "status": "Inactive"
-    }
-  ]
+  private http = inject(HttpClient);
+
+  isCreateDepartmentModalOpen = signal<boolean>(false);
+  departments = signal<Department[]>([]);
+
+  fetchAllDepartments() {
+    this.http.get<ApiResponse>("http://localhost:8000/api/department")
+      .subscribe(res => {
+        if (res.data) {
+          this.departments.set(res.data);
+        }
+      })
+  }
+
+  ngOnInit(): void {
+    this.fetchAllDepartments()
+  }
 
   openCreateDepartmentModal() {
     this.isCreateDepartmentModalOpen.set(true);
   }
 
-  closeCreateDepartmentModal() {
+  closeCreateDepartmentModal(value: string | void) {
+    if(value === "added") {
+      this.fetchAllDepartments();
+    }
     this.isCreateDepartmentModalOpen.set(false);
   }
 }

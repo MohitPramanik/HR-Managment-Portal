@@ -12,8 +12,9 @@
         <label class="form-label">Department</label>
         <select class="form-field" formControlName="department">
             <option value="">Select Department</option>
-            <option>Hiring</option>
-            <option>Engineering</option>
+             @for(department of departments(); track department._id) {
+                <option value="{{department._id}}">{{department.name}}</option>
+            }
         </select>
 
         @if(showError('department', 'required')) {
@@ -30,11 +31,11 @@
         <div class="input-field-wrapper">
             <label class="form-label">Employment Type</label>
             <select class="form-field" formControlName="employmentType">
-                <option value="">Select type</option>
-                <option>Full-time</option>
-                <option>Part-time</option>
-                <option>Internship</option>
-                <option>Contract</option>
+                <option value="" selected disabled>Select type</option>
+                <option value="fullTime">Full-time</option>
+                <option value="partTime">Part-time</option>
+                <option value="internship">Internship</option>
+                <option value="contract">Contract</option>
             </select>
 
             @if(showError('employmentType', 'required')) {
@@ -44,32 +45,41 @@
 
         <div class="input-field-wrapper">
             <label class="form-label">Minimum Required Experience</label>
-            <input type="number" class="form-field" min="0" value="0" formControlName="minExperienceRequired"  />
+            <input type="number" class="form-field" min="0" value="0" formControlName="requiredExperienceInYears"  />
 
-            @if(showError('minExperienceRequired', 'min')) {
+            @if(showError('requiredExperienceInYears', 'min')) {
                 <p class="form-error-msg">Value can't be negative</p>
             }
         </div>
      </div>
 
     <div class="grid grid-cols-2 gap-4">
-        <div class="input-field-wrapper">
+        <div formGroupName="salaryRange" class="input-field-wrapper">
             <label class="form-label">Min Salary</label>
-            <input type="number" class="form-field" min="0" formControlName="minSalary" />
+            <input type="number" class="form-field" min="0" value="0" formControlName="min" />
 
-            @if(showError('minSalary', 'min')) {
+            @if(showError('min', 'min')) {
                 <p class="form-error-msg">Value can't be negative</p>
             }
         </div>
 
-        <div class="input-field-wrapper">
+        <div formGroupName="salaryRange" class="input-field-wrapper">
             <label class="form-label">Max Salary</label>
-            <input type="number" class="form-field" min="0" formControlName="maxSalary" />
+            <input type="number" class="form-field" min="0" value="0" formControlName="max" />
 
-            @if(showError('maxSalary', 'min')) {
+            @if(showError('max', 'min')) {
                 <p class="form-error-msg">Value can't be negative</p>
             }
         </div>
+    </div>
+
+    <div class="input-field-wrapper">
+        <label class="form-label">Open Positions</label>
+        <input type="number" class="form-field" min="0" value="1" formControlName="openPositions" />
+
+        @if(showError('openPositions', 'min')) {
+            <p class="form-error-msg">Value can't be negative</p>
+        }
     </div>
 
     <div class="input-field-wrapper">
@@ -95,7 +105,7 @@
         <select class="form-field" formControlName="status">
             <option value="open">Open</option>
             <option value="closed">Closed</option>
-            <option value="onHold">Hold</option>
+            <option value="hold">Hold</option>
         </select>
     </div>
 

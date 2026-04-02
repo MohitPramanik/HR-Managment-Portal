@@ -1,20 +1,12 @@
-<section
-    app-table
-    [tableLabel]="'Jobs'"
-    [headerButtonLabel]="'Create Job'"
+<section app-table [tableLabel]="'Jobs'" [headerButtonLabel]="'Create Job'"
     (headerButtonActionClicked)="openCreateJobModal()"
-    [tableHeaders]="['Title', 'Department', 'Location', 'Status', 'Candidates', 'Actions']"
-    [tableData]="jobs"
-    [tableDataSequence]="['title', 'department', 'location','status', 'candidateCount', '']"
->
+    [tableHeaders]="['Title', 'Department', 'Location', 'Status', 'Applied', 'ShortListed', 'Actions']"
+    [tableData]="jobs()"
+    [tableDataSequence]="['title', 'department.name', 'location','status', 'candidates.applied', 'candidates.shortListed', '']">
 </section>
 
 @if(isCreateJobModalOpen()) {
-    <div
-        app-modal
-        [modalTitle]="'Create Job'"
-        [(isShown)]="isCreateJobModalOpen"
-    >
-        <div app-create-job-modal (emitClose)="closeCreateJobModal()" class="w-full"></div>
-    </div>
+<div app-modal [modalTitle]="'Create Job'" [(isShown)]="isCreateJobModalOpen">
+    <div app-create-job-modal (emitClose)="closeCreateJobModal($event)" class="w-full"></div>
+</div>
 }

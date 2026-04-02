@@ -1,9 +1,9 @@
 <section 
     app-table 
     [tableLabel]="'Employees List'"
-    [tableHeaders]="['Employee ID', 'Name', 'Email', 'Department', 'Designation', 'Reporting Manager', 'Joining Date', 'Actions', 'Status']"
-    [tableData]="employeesList"
-    [tableDataSequence]="['employeeId', 'name', 'email', 'department', 'role', 'manager', 'joiningDate', '', ['status', 'text-red-500']]"
+    [tableHeaders]="['Employee ID', 'Name', 'Email', 'Department', 'Designation', 'Reporting Manager', 'Joining Date', 'Actions', ['Status', 'text-center!']]"
+    [tableData]="employeesList()"
+    [tableDataSequence]="['emp_id', 'user.username', 'user.email', 'work.department', 'work.designation', 'work.manager', 'work.doj', '', ['work.workStatus', 'batch']]"
 >
     @if(restrictExport()) {
         <div th-action-area>

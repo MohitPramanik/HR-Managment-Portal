@@ -4,8 +4,8 @@
     [headerButtonLabel]="'Add'"
     (headerButtonActionClicked)="openCreateDepartmentModal()"
     [tableHeaders]="['Department Name', 'Head of Department', 'No. of Employees', 'Open Positions', 'Status', 'Actions']"
-    [tableData]="departments"
-    [tableDataSequence]="['name', 'head', 'employeeCount','openPositions', 'status', '']"
+    [tableData]="departments()"
+    [tableDataSequence]="['name', 'head', 'employeesCount','openPositions', 'status', '']"
 ></section>
 
 @if(isCreateDepartmentModalOpen()) {
@@ -14,6 +14,6 @@
         [modalTitle]="'Create Department'"
         [(isShown)]="isCreateDepartmentModalOpen"
     >
-        <div app-create-department-modal (emitClose)="closeCreateDepartmentModal()" class="w-full"></div>
+        <div app-create-department-modal (emitClose)="closeCreateDepartmentModal($event)" class="w-full"></div>
     </div>
 }

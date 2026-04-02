@@ -111,7 +111,7 @@
 	class="w-full"
 	app-table 
 	[tableLabel]="'Upcoming holidays'" 
-	[tableHeaders]="['Holiday', 'Date']" 
-	[tableData]="holidays"
-	[tableDataSequence]="['name', 'date']"
+	[tableHeaders]="['Holiday', 'Date', 'Day']" 
+	[tableData]="holidays()"
+	[tableDataSequence]="['name', 'date', 'day']"
 ></section>

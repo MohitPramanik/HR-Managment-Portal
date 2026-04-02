@@ -22,9 +22,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  signup(name: string, email: string, password: string): void {
-    this.http.post("http://localhost:8000/api/user/auth/register", {
-      name, email, password
+  signup(username: string, email: string, password: string, agreeTerms: boolean): void {
+    this.http.post("http://localhost:8000/api/auth/register", {
+      username, email, password, agreeTerms
     }).subscribe({
       next: (result: any) => {
         this.errorMessage.set("");
@@ -39,15 +39,17 @@ export class AuthService {
 
   login(email: string, password: string): void{
 
-    this.http.post("http://localhost:8000/api/user/auth/login", {
+    this.http.post("http://localhost:8000/api/auth/login", {
       email,
       password
     }).subscribe({
       next: (result: any) => {
         this.errorMessage.set("");
-        console.log('res', result);
-        this.currentUser = result.data;
-        localStorage.setItem('currentUser', JSON.stringify(result.data));
+        this.currentUser = result.data.user;
+
+        localStorage.setItem('currentUser', JSON.stringify(result.data.user));
+        localStorage.setItem('accessToken', JSON.stringify(result.data.accessToken));
+        
         this.navigateByUrl("/dashboard");
         return true;
       },
@@ -62,6 +64,7 @@ export class AuthService {
   logout(): void {
     this.currentUser = null;
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
     this.navigateByUrl("/login");
   }
 
@@ -75,7 +78,7 @@ export class AuthService {
     }
 
     return this.currentUser;
-  }
+  } 
 
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();

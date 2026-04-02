@@ -11,12 +11,13 @@
 
     <div class="input-field-wrapper">
         <label class="form-label">Head of Department</label>
-        <select class="form-field" formControlName="departmentHead">
+        <select class="form-field" formControlName="head">
             <option value="">Select department head</option>
             <option>Amit Sharma</option>
             <option>Priya Verma</option>
             <option>Rahul Singh</option>
             <option>Sneha Kapoor</option>
+            <option>Sneha Kapoori</option>
         </select>
 
         @if(showError('departmentHead', 'required')) {
@@ -46,19 +47,7 @@
         }
     </div>
 
-    <div class="input-field-wrapper">
-        <label class="form-label">Description</label>
-        <textarea rows="4" class="form-field" placeholder="Add notes or description about the department..." formControlName="description"></textarea>
-
-        @if(showError('description', 'required')) {
-            <p class="form-error-msg">This field is required</p>
-        } 
-        @else if(showError('description', 'minlength')) {
-            <p class="form-error-msg">The field must contain atleast 10 characters</p>
-        }
-    </div>
-
-    <div class="flex justify-end gap-3">
+    <div class="flex justify-end gap-3 mt-5">
         <button type="button" class="btn-outline" (click)="onCancel()">
             Cancel
         </button>

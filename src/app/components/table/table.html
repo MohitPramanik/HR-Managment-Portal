@@ -4,7 +4,9 @@
     <h2 class="sm:text-2xl text-xl font-extrabold">{{tableLabel()}}</h2>
 
     @if(headerButtonLabel()) {
-        <button class="btn" (click)="headerButtonActionClicked.emit()">{{headerButtonLabel()}}</button>
+        <button class="btn" (click)="headerButtonActionClicked.emit()">
+            {{headerButtonLabel()}}
+        </button>
     }
 
     <ng-content select="[th-action-area]"></ng-content>
@@ -34,20 +36,14 @@
                 @for(data of tableData(); track $index; let i = $index) {
                 <tr>
                     @for(item of tableDataSequence(); track item) {
-                    <td [class]="isTuple(item) ? item[1] : ''">
-                        <!-- if item = '#', display index(i+1), 
-                                else check if it's tuple then display 0th index 
-                                or if it's string then display item itself -->
-                        {{ item === "#" ? 
-                                i+1 : 
-                                ( 
-                                    isTuple(item) ? ( 
-                                        item[0] === "#" ? i+1 : data[item[0]]
-                                    ) : 
-                                    data[item] ?? resolveObject(item, data)
-                                )
-                        }}
-                    </td>
+                        <td [class]="isTuple(item) ? item[1] : null">
+                            @if(item[1] && item[1]==="batch") {
+                                <span [attr.data-status]="resolveItem(item, data, i)">{{resolveItem(item, data, i)}}</span>
+                            }
+                            @else {
+                                {{resolveItem(item, data, i)}}
+                            }
+                        </td>
                     }
                 </tr>
                 } @empty {
@@ -62,32 +58,34 @@
     </div>
 
     @if(pagination()) {
-        <div class="flex justify-end w-full gap-3 text-gray-500 text-sm px-3 py-4">
-            <div>
-                <label for="">Items per page: </label>
-                <select name="" id="">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                    <option>100</option>
-                </select>
-            </div>
-
-            <div class="flex gap-2 me-3">
-                <button class="cursor-pointer">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <span>0 of 0</span>
-                <button class="cursor-pointer">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>        
+    <div class="flex justify-end w-full gap-3 text-gray-500 text-sm px-3 py-4">
+        <div>
+            <label for="">Items per page: </label>
+            <select name="" id="">
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
         </div>
+
+        <div class="flex gap-2 me-3">
+            <button class="cursor-pointer">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <span>0 of 0</span>
+            <button class="cursor-pointer">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
     }
 
     <!-- table bottom button -->
     @if(tableButtonLabel() && tableData().length) {
-        <button class="btn table-bottom-btn" (click)="tableButtonActionClicked.emit()">{{tableButtonLabel()}}</button>
+        <button class="btn table-bottom-btn" (click)="tableButtonActionClicked.emit()">
+            {{tableButtonLabel()}}
+        </button>
     }
 
 </div>

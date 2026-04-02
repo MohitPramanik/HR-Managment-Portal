@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -9,34 +10,38 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 
 export class CreateDepartmentModal {
+
+  private http = inject(HttpClient);
   private formBuilder = inject(FormBuilder);
 
   department = this.formBuilder.group({
     name: ['', [Validators.required]],
-    departmentHead: ['', [Validators.required]],
+    head: ['', [Validators.required]],
     openPositions: [0, [Validators.min(0)]],
-    status: ['active', [Validators.required]],
-    description: ['', [Validators.required, Validators.minLength(10)]]
+    status: ['active', [Validators.required]]
   })
 
-  emitClose = output<void>();
+  emitClose = output<string | void>();
 
   showError(controlName: string, errorName: string) {
     let control = this.department.get(controlName);
 
-    return control?.invalid && (control?.dirty || control?.touched) && control?.hasError(errorName);
+    return control?.invalid &&
+      (control?.dirty || control?.touched) &&
+      control?.hasError(errorName);
   }
 
   onSubmit() {
     if (this.department.invalid) {
       this.department.markAllAsTouched();
-
       return;
     }
 
-    console.log(this.department.value);
-    this.department.reset();
-    this.emitClose.emit();
+    this.http.post("http://localhost:8000/api/department", this.department.value).subscribe(() => {
+      this.department.reset();
+      this.emitClose.emit("added")
+    })
+
   }
 
   onCancel() {
@@ -48,15 +53,3 @@ export class CreateDepartmentModal {
 
 }
 
-//  jobCreationForm = this.formBuilder.group({
-//     title: ['', [Validators.required]],
-//     department: ['', [Validators.required]],
-//     location: [''],
-//     employmentType: ['', [Validators.required]],
-//     minExperienceRequired: [0],
-//     minSalary: [0],
-//     maxSalary: [0],
-//     requiredSkills: ['', [Validators.required]],
-//     jobDescription: ['', [Validators.required]],
-//     jobStatus: ['open']
-//   })

@@ -25,6 +25,26 @@
         padding: 10px 1rem;
         text-align: left;
     }
+
+    .batch {
+        text-align: center;
+    }
+
+    span {
+        text-transform: capitalize;
+        padding: 4px 16px;
+        border-radius: 50px;
+        font-size: 78%;
+        color: white;
+
+        &[data-status="active"] {
+            background-color: #28a745;
+        }
+
+        &[data-status="inactive"] {
+            background-color: #dc3545;
+        }
+    }
 }
 
 .table-bottom-btn {

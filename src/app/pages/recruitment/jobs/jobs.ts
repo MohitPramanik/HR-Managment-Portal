@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Table } from '../../../components/table/table';
 import { Modal } from '../../../components/modal/modal';
 import { CreateJobModal } from '../create-job-modal/create-job-modal';
-import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../../../interfaces/api';
 
 @Component({
   selector: 'app-jobs',
@@ -11,50 +12,34 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrl: './jobs.scss',
 })
 
-export class Jobs {
+export class Jobs implements OnInit {
 
+  private http = inject(HttpClient);
+
+  jobs = signal([]);
   isCreateJobModalOpen = signal<boolean>(false);
+
+  fetchAllJobs() {
+    this.http.get<ApiResponse>("http://localhost:8000/api/job")
+      .subscribe(res => {
+        if (res.data) {
+          this.jobs.set(res.data);
+        }
+      })
+  }
+
+  ngOnInit(): void {
+    this.fetchAllJobs();
+  }
 
   openCreateJobModal() {
     this.isCreateJobModalOpen.set(true);
   }
 
-  closeCreateJobModal() {
+  closeCreateJobModal(value: string | void) {
+    if (value === "added") {
+      this.fetchAllJobs();
+    }
     this.isCreateJobModalOpen.set(false);
   }
-
-  jobs = [
-    {
-      "id": 1,
-      "title": "Frontend Developer",
-      "department": "Engineering",
-      "location": "Remote",
-      "status": "Open",
-      "candidateCount": 12
-    },
-    {
-      "id": 2,
-      "title": "Backend Developer",
-      "department": "Engineering",
-      "location": "Bangalore",
-      "status": "Open",
-      "candidateCount": 8
-    },
-    {
-      "id": 3,
-      "title": "UI/UX Designer",
-      "department": "Design",
-      "location": "Delhi",
-      "status": "Closed",
-      "candidateCount": 5
-    },
-    {
-      "id": 4,
-      "title": "HR Executive",
-      "department": "Human Resources",
-      "location": "Mumbai",
-      "status": "Open",
-      "candidateCount": 3
-    }
-  ];
 }

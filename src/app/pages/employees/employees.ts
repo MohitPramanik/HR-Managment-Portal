@@ -1,6 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Table, TableHeaderActionArea, TableHeaderContentArea } from '../../components/table/table';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../../interfaces/api';
+import { EmployeeFilter } from './employee-filter';
 
 interface Employee {
   employeeId: string;
@@ -13,38 +15,6 @@ interface Employee {
   joiningDate: string;
 };
 
-@Component({
-  selector: 'div[app-employee-filter]',
-  imports: [ReactiveFormsModule],
-  templateUrl: './employee-filter.html',
-  styleUrl: './employees.scss',
-})
-export class EmployeeFilter {
-
-  private formBuilder = inject(FormBuilder);
-
-  searchFilter = this.formBuilder.nonNullable.group({
-    searchBy: [''],
-    searchValue: [''],
-    department: ['all'],
-    role: ['all'],
-    status: ['all']
-  })
-
-  searchValuePlaceholder = "Enter Name"
-
-  constructor() {
-    this.searchFilter.get("searchBy")?.valueChanges.subscribe(value => {
-      this.searchValuePlaceholder = `Enter ${value}`
-    })
-  }
-
-  onSubmit() {
-    console.log(this.searchFilter.value);
-  }
-
-}
-
 
 @Component({
   selector: 'app-employees',
@@ -52,131 +22,22 @@ export class EmployeeFilter {
   templateUrl: './employees.html',
   styleUrl: './employees.scss',
 })
-export class Employees {
+
+export class Employees implements OnInit {
   role = "Employee";
 
-  employeesList: Employee[] = [
-    {
-      "employeeId": "EMP001",
-      "name": "Amit Sharma",
-      "email": "amit.sharma@company.com",
-      "department": "Engineering",
-      "role": "Employee",
-      "manager": "Rahul Verma",
-      "status": "Active",
-      "joiningDate": "2022-03-15"
-    },
-    {
-      "employeeId": "EMP002",
-      "name": "Neha Singh",
-      "email": "neha.singh@company.com",
-      "department": "HR",
-      "role": "HR",
-      "manager": "Kavita Mehta",
-      "status": "Active",
-      "joiningDate": "2021-11-08"
-    },
-    {
-      "employeeId": "EMP003",
-      "name": "Rahul Verma",
-      "email": "rahul.verma@company.com",
-      "department": "Engineering",
-      "role": "Manager",
-      "manager": "Arjun Malhotra",
-      "status": "Active",
-      "joiningDate": "2020-07-21"
-    },
-    {
-      "employeeId": "EMP004",
-      "name": "Kavita Mehta",
-      "email": "kavita.mehta@company.com",
-      "department": "HR",
-      "role": "Manager",
-      "manager": "Arjun Malhotra",
-      "status": "Active",
-      "joiningDate": "2019-05-10"
-    },
-    {
-      "employeeId": "EMP005",
-      "name": "Arjun Malhotra",
-      "email": "arjun.malhotra@company.com",
-      "department": "Management",
-      "role": "Admin",
-      "manager": null,
-      "status": "Active",
-      "joiningDate": "2018-01-12"
-    },
-    {
-      "employeeId": "EMP006",
-      "name": "Pooja Gupta",
-      "email": "pooja.gupta@company.com",
-      "department": "Finance",
-      "role": "Employee",
-      "manager": "Rakesh Jain",
-      "status": "Active",
-      "joiningDate": "2023-02-03"
-    },
-    {
-      "employeeId": "EMP007",
-      "name": "Rakesh Jain",
-      "email": "rakesh.jain@company.com",
-      "department": "Finance",
-      "role": "Manager",
-      "manager": "Arjun Malhotra",
-      "status": "Active",
-      "joiningDate": "2019-09-18"
-    },
-    {
-      "employeeId": "EMP008",
-      "name": "Mohit Patel",
-      "email": "mohit.patel@company.com",
-      "department": "Engineering",
-      "role": "Employee",
-      "manager": "Rahul Verma",
-      "status": "Active",
-      "joiningDate": "2023-06-14"
-    },
-    {
-      "employeeId": "EMP009",
-      "name": "Sneha Kapoor",
-      "email": "sneha.kapoor@company.com",
-      "department": "Marketing",
-      "role": "Employee",
-      "manager": "Ankit Agarwal",
-      "status": "Active",
-      "joiningDate": "2022-10-05"
-    },
-    {
-      "employeeId": "EMP010",
-      "name": "Ankit Agarwal",
-      "email": "ankit.agarwal@company.com",
-      "department": "Marketing",
-      "role": "Manager",
-      "manager": "Arjun Malhotra",
-      "status": "Active",
-      "joiningDate": "2020-04-22"
-    },
-    {
-      "employeeId": "EMP011",
-      "name": "Priya Nair",
-      "email": "priya.nair@company.com",
-      "department": "Engineering",
-      "role": "Employee",
-      "manager": "Rahul Verma",
-      "status": "Active",
-      "joiningDate": "2023-01-11"
-    },
-    {
-      "employeeId": "EMP012",
-      "name": "Karan Bansal",
-      "email": "karan.bansal@company.com",
-      "department": "Engineering",
-      "role": "Employee",
-      "manager": "Rahul Verma",
-      "status": "Inactive",
-      "joiningDate": "2021-08-09"
-    }
-  ]
+  private http = inject(HttpClient);
+
+  employeesList = signal<Employee[]>([]);
+
+  ngOnInit(): void {
+    this.http.get<ApiResponse>("http://localhost:8000/api/employee?page=1&limit=10")
+      .subscribe(res => {
+        if(res.data) {
+          this.employeesList.set(res.data);
+        }
+      })
+  }
 
   restrictExport() {
     switch (this.role) {

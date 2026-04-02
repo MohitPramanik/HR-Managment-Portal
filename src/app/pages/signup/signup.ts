@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth-service';
@@ -9,11 +9,15 @@ import { AuthService } from '../../services/auth/auth-service';
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
-export class Signup {
+export class Signup implements OnInit {
 
   private auth = inject(AuthService);
   private formBuilder = inject(FormBuilder);
-  readonly errorMessage = this.auth.errorMessage;
+  errorMessage = this.auth.errorMessage;
+  
+  ngOnInit(): void {
+    this.errorMessage.set("");
+  }
 
   signUpForm = this.formBuilder.nonNullable.group({
     username: ["", [
@@ -55,7 +59,7 @@ export class Signup {
   }
 
   onSubmit() {
-    const {username, email, password} = this.signUpForm.getRawValue();
-    this.auth.signup(username, email, password);
+    const {username, email, password, isAgree} = this.signUpForm.getRawValue();
+    this.auth.signup(username, email, password, isAgree);
   }
 }

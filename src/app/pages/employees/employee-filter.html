@@ -19,11 +19,9 @@
   <div class="input-field-wrapper">
     <select class="form-field" formControlName="department">
       <option value="all">All Departments</option>
-      <option>Engineering</option>
-      <option>HR</option>
-      <option>Finance</option>
-      <option>Marketing</option>
-      <option>Management</option>
+      @for(department of departments(); track department._id) {
+        <option value="{{department._id}}">{{department.name}}</option>
+      }
     </select>
   </div>
 

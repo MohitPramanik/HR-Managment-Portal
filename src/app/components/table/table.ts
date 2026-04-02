@@ -8,7 +8,7 @@ type TableCellData = string | [string, string];
   template: `<ng-content></ng-content>`,
   styleUrl: './table.scss',
 })
-export class TableHeaderActionArea {}
+export class TableHeaderActionArea { }
 
 @Component({
   selector: '[th-content-area]',
@@ -16,7 +16,7 @@ export class TableHeaderActionArea {}
   template: `<ng-content></ng-content>`,
   styleUrl: './table.scss',
 })
-export class TableHeaderContentArea {}
+export class TableHeaderContentArea { }
 
 @Component({
   selector: 'section[app-table]',
@@ -39,12 +39,47 @@ export class Table {
   emptyTableMessage = input<string>("No Records Found");
   pagination = input<boolean>(false);
 
-  isTuple(header: TableCellData): header is [string, string] {
-    return Array.isArray(header);
+  isTuple(val: TableCellData) {
+    return Array.isArray(val);
   }
 
-  
-  resolveObject(item: string, data: {[key: string]: any}) {
+  isNormalString(val: TableCellData) {
+    if (!val.includes(".") && !Array.isArray(val)) return true;
+    return false;
+  }
+
+  resolveItem(
+    val: TableCellData,
+    data: { [key: string]: string },
+    index: number
+  ) {
+    // val can or cannot be tuple
+    if (this.isTuple(val)) {
+        if (val[0] === "#") {
+          return index + 1;
+        }
+        else if (val[0].includes(".")) { /* if val[0] is object */
+          return this.resolveObject(val[0], data);
+        }
+        else {  /* if val[0] is normal string */
+          return data[val[0]]
+        }
+    }
+    else {
+        if (val.includes(".")) { /* if object */
+          return this.resolveObject(val, data);
+        }
+        else if (val === "#") { 
+          return index + 1;
+        }
+        else { /* if normal string */
+          return data[val];
+        }
+    }
+  }
+
+
+  resolveObject(item: string, data: { [key: string]: any }) {
     let keys = item.split(".");
 
     const result = keys.reduce((acc, key) => acc?.[key], data)

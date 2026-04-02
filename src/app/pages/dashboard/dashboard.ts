@@ -1,8 +1,9 @@
-import { Component, computed, inject, input, Signal, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, Signal, signal } from '@angular/core';
 import { Table } from '../../components/table/table';
 import { UserRole } from '../../interfaces/user';
 import { AuthService } from '../../services/auth/auth-service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 interface DashBoardCard {
   title: string;
@@ -12,9 +13,15 @@ interface DashBoardCard {
 
 type CardDataSelection = "self" | "team";
 
-interface Holidays {
+interface Holiday {
   name: string;
   date: string;
+  day: string;
+}
+
+interface ApiResponse {
+  status: number;
+  data: Holiday[];
 }
 
 @Component({
@@ -35,17 +42,27 @@ export class DashboardCard {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
 
   private auth = inject(AuthService);
   private router = inject(Router);
+  private http = inject(HttpClient);
+
+  holidays = signal<Holiday[]>([]);
 
   role = signal<UserRole>("employee");
   cardDataSelection = signal<CardDataSelection>("self"); // Only Managers, HRs and Admin can udpate
 
 
-  constructor() {
+  ngOnInit() {
     this.role.set(this.auth.getCurrentUser()?.role ?? "employee")
+
+    this.http.get<ApiResponse>("http://localhost:8000/api/holiday/upcoming")
+      .subscribe(res => {
+        if (res.data) {
+          this.holidays.set(res.data);
+        }
+      });
   }
 
   // for each employee including managers, hrs, ... as well
@@ -125,13 +142,7 @@ export class Dashboard {
 
   });
 
-  // holiday list
-  holidays: Holidays[] = [
-    { name: 'Holi', date: '25 Mar 2026' },
-    { name: 'Good Friday', date: '3 Apr 2026' },
-    { name: 'Ram Navami', date: '6 Apr 2026' },
-    { name: 'Independence Day', date: '15 Aug 2026' },
-  ];
+
 
   // Last 4 system activity (for super admin);
   systemActivity = [

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,11 +11,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
     "class": "h-full"
   }
 })
-export class Login {
+export class Login implements OnInit {
 
   private auth = inject(AuthService);
   private formBuilder = inject(FormBuilder);
-  readonly errorMessage = this.auth.errorMessage;
+  errorMessage = this.auth.errorMessage;
+
+  ngOnInit(): void {
+    this.errorMessage.set("");
+  }
 
   loginForm = this.formBuilder.nonNullable.group({
     email: ["", [

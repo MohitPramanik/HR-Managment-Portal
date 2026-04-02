@@ -1,5 +1,12 @@
-import { Component, inject, output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, inject, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ApiResponse } from '../../../interfaces/api';
+
+interface Department {
+  _id: string;
+  name: string;
+}
 
 @Component({
   selector: 'div[app-create-job-modal]',
@@ -7,24 +14,44 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './create-job-modal.html',
   styleUrl: './create-job-modal.scss',
 })
+
+
 export class CreateJobModal {
 
+  private http = inject(HttpClient);
   private formBuilder = inject(FormBuilder);
+
+
+  departments = signal<Department[]>([]);
 
   jobForm = this.formBuilder.group({
     title: ['', [Validators.required]],
     department: ['', [Validators.required]],
     location: [''],
     employmentType: ['', [Validators.required]],
-    minExperienceRequired: [0, [Validators.min(0)]],
-    minSalary: [0, [Validators.min(0)]],
-    maxSalary: [0, [Validators.min(0)]],
+    requiredExperienceInYears: [0, [Validators.min(0)]],
+    salaryRange: this.formBuilder.group({
+      min: [0, [Validators.min(0)]],
+      max: [0, [Validators.min(0)]]
+    }),
     requiredSkills: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    status: ['open']
+    status: ['open'],
+    openPositions: [1, [Validators.min(0)]]
   })
 
-  emitClose = output<void>();
+  constructor() {
+    this.http.get<ApiResponse>("http://localhost:8000/api/department")
+      .subscribe(res => {
+        if (res.data) {
+          this.departments.set(res.data)
+          console.log(this.departments);
+        }
+      })
+  }
+
+
+  emitClose = output<string | void>();
 
   showError(controlName: string, errorName: string) {
     const control = this.jobForm.get(controlName);
@@ -38,9 +65,19 @@ export class CreateJobModal {
       return;
     }
 
-    console.log(this.jobForm.value);
-    this.jobForm.reset();
-    this.emitClose.emit();
+    const formData = this.jobForm.value;
+
+    const payload = {
+      ...formData,
+      requiredSkills: formData.requiredSkills?.split(",")
+        .map((skill) => skill.trim())
+    }
+
+    this.http.post("http://localhost:8000/api/job", payload)
+      .subscribe(res => {
+        this.jobForm.reset();
+        this.emitClose.emit("added");
+      })
   }
 
   onClose() {
