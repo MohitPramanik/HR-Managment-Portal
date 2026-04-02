@@ -1,9 +1,22 @@
-<section 
-	class="w-full"
-	app-table 
-	[tableLabel]="'Leave requests'" 
-	[tableHeaders]="['ID', 'Employee', 'Type', 'From', 'To', 'Days', 'Status', 'Actions']" 
-	[tableData]="leaveRequestData"
-	[tableDataSequence]="['id', 'employee.name', 'employee.id', 'type', 'startDate', 'endDate', 'days', 'status']"
-    [pagination]="true"
-></section>
+@if(role === "employee") {
+	<section 
+		class="w-full"
+		app-table 
+		[tableLabel]="'Leave requests'" 
+		[tableHeaders]="['Type', 'From', 'To', 'Applied Date', 'Status', 'Actions']" 
+		[tableData]="leaveRequests()"
+		[tableDataSequence]="['leaveType', 'from', 'to', 'createdAt', 'status', '']"
+		[pagination]="true"
+	></section>
+}
+@else {
+	<section 
+		class="w-full"
+		app-table 
+		[tableLabel]="'Leave requests'" 
+		[tableHeaders]="['Employee ID', 'Name', 'Type', 'From', 'To', 'Status', 'Actions']" 
+		[tableData]="leaveRequests()"
+		[tableDataSequence]="['employee.empId', 'employee.user.username', 'leaveType', 'from', 'to', 'status', '']"
+		[pagination]="true"
+	></section>
+}

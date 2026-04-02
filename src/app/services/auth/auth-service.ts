@@ -8,15 +8,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private users: User[] = [
-    { id: 1, email: "admin@gmail.com", password: "admin123", role: "admin" },
-    { id: 2, email: "manager@gmail.com", password: "manager123", role: "manager" },
-    { id: 3, email: "employee@gmail.com", password: "employee123", role: "employee" },
-    { id: 3, email: "hr@gmail.com", password: "hr123", role: "hr" },
-    { id: 3, email: "superadmin@gmail.com", password: "superadmin123", role: "superAdmin" }
-  ]
+  // private users: User[] = [
+  //   { id: 1, email: "admin@gmail.com", password: "admin123", role: "admin" },
+  //   { id: 2, email: "manager@gmail.com", password: "manager123", role: "manager" },
+  //   { id: 3, email: "employee@gmail.com", password: "employee123", role: "employee" },
+  //   { id: 3, email: "hr@gmail.com", password: "hr123", role: "hr" },
+  //   { id: 3, email: "superadmin@gmail.com", password: "superadmin123", role: "superAdmin" }
+  // ]
 
-  private currentUser: User | null = null;
+  public currentUser: User | null = null;
   private router = inject(Router);
   errorMessage = signal<string>("");
 

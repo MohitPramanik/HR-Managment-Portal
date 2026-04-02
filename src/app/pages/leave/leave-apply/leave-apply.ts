@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../../services/auth/auth-service';
 
 @Component({
   selector: 'section[leave-apply]',
@@ -10,12 +12,13 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 export class LeaveApply {
   private formBuilder = inject(FormBuilder);
 
+  constructor(private http: HttpClient, private auth: AuthService) {}
+
   leaveForm = this.formBuilder.group({
-    empId: [''],
     leaveType: ['', [Validators.required]],
     from: ['', [Validators.required]],
     to: ['', [Validators.required]],
-    reason: ['', [Validators.required, Validators.minLength(10)]]
+    reason: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]]
   })
 
   leaveEndMinDate = "";
@@ -38,6 +41,17 @@ export class LeaveApply {
   }
 
   onSubmit() {
-    console.log(this.leaveForm.value);
+
+    console.log(this.auth.currentUser?.id)
+    console.log(this.auth.currentUser?.managerId)
+
+    this.http.post("http://localhost:8000/api/leave/apply", {
+        empId: this.auth.currentUser?.id,
+        managerId: this.auth.currentUser?.managerId,
+        ...this.leaveForm.value
+    }).subscribe(res => {
+      console.log(res);
+
+    })
   }
 }

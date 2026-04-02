@@ -3,7 +3,7 @@
     [tableLabel]="'Employees List'"
     [tableHeaders]="['Employee ID', 'Name', 'Email', 'Department', 'Designation', 'Reporting Manager', 'Joining Date', 'Actions', ['Status', 'text-center!']]"
     [tableData]="employeesList()"
-    [tableDataSequence]="['emp_id', 'user.username', 'user.email', 'work.department', 'work.designation', 'work.manager', 'work.doj', '', ['work.workStatus', 'batch']]"
+    [tableDataSequence]="['empId', 'user.username', 'user.email', 'work.department', 'work.designation', 'work.manager.username', 'work.doj', '', ['work.workStatus', 'batch']]"
 >
     @if(restrictExport()) {
         <div th-action-area>
