@@ -39,7 +39,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         let employee = await Employee.findOne({ user: user._id })
         if (employee) {
             logInUserId = employee?._id.toString();
-            managerId = employee.work.manager.toString();
+            managerId = employee.work.manager?.toString();
         }
     }
 

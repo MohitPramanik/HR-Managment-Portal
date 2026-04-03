@@ -1,113 +1,162 @@
-# Vertex - HR Management Portal
+# Vertex
 
-An Angular 21 HR management portal prototype for common people-ops workflows such as employee management, attendance tracking, leave handling, payroll views, recruitment, and company settings.
+Vertex is a full-stack HR management portal built to streamline core people operations in one place. The application includes authentication, authorization, role-based access control (RBAC), employee and department management, recruitment workflows, leave handling, payroll-related views, attendance/timesheet tracking, dashboards, reports, and organization settings.
 
-This project is currently a frontend-focused demo application. Several modules use seeded mock data, and some feature areas persist changes in `localStorage` so the UI remains interactive across refreshes without a backend.
+The repository is split into:
 
-## Features
+- `client/` - Angular frontend
+- `server/` - Node.js + Express backend API
 
-- Dashboard with role-based summary cards and activity sections
-- Employee directory with filter controls and export/add action placeholders
-- Attendance calendar, timesheet entry modal, and attendance records
+## Core Features
+
+- Secure user signup and login flow
+- Authentication with JWT-based access tokens
+- Authorization with role-aware route protection
+- Role-based access control for `superAdmin`, `admin`, `hr`, `manager`, `employee`, and `candidate`
+- Employee management and employee directory
+- Department management
+- Recruitment modules for jobs and candidates
 - Leave application, leave requests, and leave balance tracking
-- Payslips and salary structure management
-- Recruitment screens for jobs and candidates
-- Department management and reports pages
-- Profile, notifications, company settings, and security/general settings
-- Authentication-related pages for login, signup, and password reset
+- Attendance records and timesheet management
+- Payslips and salary structure screens
+- Dashboard summaries and reporting pages
+- Profile, notifications, and company settings
+- Password reset screen and protected navigation guards
 
-## Tech Stack
+## Technologies Used
 
-- Angular 21 with standalone components
+### Frontend
+
+- Angular 21
+- TypeScript
 - Angular Router
-- Angular Signals for UI and store state
-- SCSS for styling
-- Tailwind CSS v4 utilities in global styles
-- Vitest via Angular's unit test builder
+- SCSS
+- Tailwind CSS
 
-## Project Status
+### Backend
 
-The app is best described as a UI prototype or frontend starter for an HR platform.
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB
+- Mongoose
+- JWT (`jsonwebtoken`)
+- Bcrypt
+- Joi
 
-- Some pages are static or partially interactive
-- Attendance, leave, salary structure, and company settings include local state stores
-- Data persistence is browser-based only and uses `localStorage`
-- There is no API or authentication backend wired into the project yet
+## Application Highlights
 
-## Getting Started
+- Full-stack architecture with separate frontend and backend applications
+- MongoDB-backed data layer for users, employees, departments, leaves, jobs, holidays, dashboards, and leave balances
+- Password hashing using `bcrypt`
+- Request validation using `Joi`
+- REST API structure under `/api`
+- Route guards on the frontend for authentication, auto-login, role checks, and unsaved changes protection
+- Lazy-loaded Angular pages for major modules
+- Centralized Express error handling and async controller utilities
+
+## Main Modules
+
+- Authentication
+- Dashboard
+- Employees
+- Departments
+- Recruitment
+- Leave Management
+- Leave Balance
+- Holiday Calendar
+- Timesheet
+- Attendance Records
+- Payslips
+- Salary Structure
+- Reports
+- Company Settings
+- Notifications
+- Profile
+
+## Setup
 
 ### Prerequisites
 
 - Node.js
 - npm
+- MongoDB connection string
 
-### Install dependencies
+### 1. Install frontend dependencies
 
 ```bash
+cd client
 npm install
 ```
 
-### Run the app locally
+### 2. Install backend dependencies
 
 ```bash
+cd server
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file inside `server/` and add:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+PORT=8000
+```
+
+### 4. Start the backend server
+
+```bash
+cd server
+npm run dev
+```
+
+### 5. Start the frontend application
+
+```bash
+cd client
 npm start
 ```
 
-The dev server runs at `http://localhost:4200/`.
+Frontend default URL:
+
+```text
+http://localhost:4200
+```
+
+Backend default URL:
+
+```text
+http://localhost:8000
+```
 
 ## Available Scripts
 
+### Client
+
 ```bash
-npm start      # Start Angular dev server
-npm run build  # Create a production build in dist/
-npm run watch  # Build in watch mode using development configuration
-npm test       # Run unit tests
+npm start
+npm run build
+npm run watch
+npm test
 ```
 
-## Main Routes
+### Server
 
-- `/dashboard`
-- `/employees`
-- `/attendance`
-- `/attendance/records`
-- `/leave/apply`
-- `/leave/requests`
-- `/leave/balance`
-- `/payslips`
-- `/salary-structure`
-- `/holiday-list`
-- `/recruitment/jobs`
-- `/recruitment/candidates`
-- `/departments`
-- `/reports`
-- `/company-setting`
-- `/settings`
-- `/settings/security`
-- `/profile`
-- `/notifications`
-- `/login`
-- `/signup`
-- `/password/reset`
+```bash
+npm run dev
+npm run build
+npm start
+```
 
-## Local Persistence
+## Notes
 
-The following feature areas currently save data to browser `localStorage`:
+- The frontend uses local storage for session persistence after login.
+- The application includes route-level protection for authenticated and role-based access.
+- The backend connects to MongoDB using Mongoose and exposes REST endpoints through Express.
+- The codebase is written in TypeScript across both frontend and backend.
 
-- Attendance entries
-- Leave requests and leave balances
-- Salary structure
-- Company settings
+## Summary
 
-If you want a clean demo state, clear site storage in your browser and reload the app.
-
-## Build Output
-
-Production builds are generated in the `dist/` directory.
-
-## Future Improvements
-
-- Connect the UI to a real API and database
-- Add authentication and role-based access control
-- Replace hard-coded lists with server-backed data
-- Expand automated test coverage
-- Add end-to-end testing
+Vertex is a modern HR management portal that combines Angular on the frontend with an Express and MongoDB backend. It is designed as a role-aware full-stack application covering employee operations, recruitment, attendance, leave, payroll-oriented screens, and organizational administration.

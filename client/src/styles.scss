@@ -135,7 +135,8 @@ a.btn-outline {
 }
 
 .filter-section {
-    @apply flex flex-wrap gap-2 p-2 bg-[#aea4fe];
+    @apply flex flex-wrap gap-2 p-2;
+    background-color: $algae-green-light;
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 10px;

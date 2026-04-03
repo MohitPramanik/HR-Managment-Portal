@@ -1,7 +1,13 @@
 @use "tailwindcss";
+@use "variables" as *;
 
 .calendar-box {
     @apply flex flex-col items-center w-full border-x-2 border-y-1 border-black m-auto;
+}
+
+.calendar-header {
+    @apply flex w-full text-white font-bold sm:text-xl text-base;
+    background-color: $secondary-dark-light;
 }
 
 .calendar-cell {
@@ -31,7 +37,7 @@
         }
 
         &:hover {
-            background-color: rgb(207, 205, 205);
+            background-color: $algae-green-light-secondary;
         }
 
         &.logged:not(.disabled-box) {

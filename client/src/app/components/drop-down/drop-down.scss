@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 .dropdown {
     position: relative;
 
@@ -13,13 +15,15 @@
 
 
     .list-wrapper {
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #edefff;
+        box-shadow: 0px 2px 2px #0000005c;
         transform: translateY(0px) scale(0.98);
         transition:
             opacity 180ms ease-out,
             transform 180ms ease-out,
             visibility 0s linear 180ms;
-        border: 1px solid black;
-        background-color: rgb(193, 193, 194);
         width: 10rem;
         margin: 0;
         padding: 0;
@@ -27,7 +31,7 @@
 
     li {
         list-style: none;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid #181a1b2b;
         cursor: pointer;
         color: black;
         font-weight: 300;
@@ -37,11 +41,12 @@
         }
 
         &:hover {
-            background-color: rgba(73, 73, 255, 0.767);
+            background-color: $algae-green-light-secondary;
             color: white;
         }
 
-        a, button {
+        a,
+        button {
             padding: 0.5rem 1rem;
             height: 100%;
             width: 100%;
@@ -49,7 +54,7 @@
             text-align: start;
         }
 
-        &:not(:has(a)){
+        &:not(:has(a)) {
             padding: 0.5rem 1rem;
         }
 
