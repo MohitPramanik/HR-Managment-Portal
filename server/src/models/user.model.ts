@@ -56,7 +56,7 @@ userSchema.pre('save', async function() {
 })
 
 userSchema.methods.generateToken = function(user: User) {
-    const privateKey = "Mohit";
+    const privateKey = process.env.SECRET_KEY as string;
 
     return jwt.sign({
         id: user._id,

@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { getLeaveBalance, updateLeaveBalance } from "../controllers/leaveBalance.controllers";
+import { isLoggedInUser } from "../middlewares/auth.middleware";
 
 const leaveBalanceRouter = Router();
 
 leaveBalanceRouter.route("/")
-    .post(getLeaveBalance);
+    .post(isLoggedInUser, getLeaveBalance);
 
 leaveBalanceRouter.route("/update")
-    .post(updateLeaveBalance);
+    .post(isLoggedInUser, updateLeaveBalance);
 
 export default leaveBalanceRouter;

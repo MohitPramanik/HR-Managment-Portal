@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UserRole } from '../../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -49,7 +49,7 @@ export class AuthService {
         this.currentUser = result.data.user;
 
         localStorage.setItem('currentUser', JSON.stringify(result.data.user));
-        localStorage.setItem('accessToken', JSON.stringify(result.data.accessToken));
+        localStorage.setItem('accessToken', result.data.accessToken);
         
         this.navigateByUrl("/dashboard");
         return true;
