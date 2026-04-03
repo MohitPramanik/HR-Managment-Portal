@@ -4,11 +4,15 @@
   @apply flex flex-wrap gap-3 mb-4 p-4 border rounded bg-gray-200 shadow-sm items-end;
 }
 
+.text-style {
+  @apply text-sm font-semibold text-gray-700;
+}
+
 .field {
   @apply flex flex-col gap-1 min-w-[220px];
 
   label {
-    @apply text-sm font-semibold text-gray-700;
+    @extend .text-style;
   }
 }
 
@@ -24,20 +28,18 @@
   @apply grid sm:grid-cols-4 grid-cols-2 gap-3;
 }
 
-.kpi-card {
+
+.kpi-card,
+.panel {
   @apply bg-white border border-gray-300 rounded-md p-4 shadow-sm;
 }
 
 .kpi-title {
-  @apply text-sm text-gray-700 font-semibold;
+  @extend .text-style;
 }
 
 .kpi-value {
   @apply text-3xl font-extrabold mt-1;
-}
-
-.panel {
-  @apply bg-white border border-gray-300 rounded-md p-4 shadow-sm;
 }
 
 .panel-title {
@@ -103,4 +105,3 @@
     background-color: #b2caff;
   }
 }
-

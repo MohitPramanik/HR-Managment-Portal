@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "hr-management-portal": {
+    "vertex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "hr-management-portal:build:production"
+              "buildTarget": "vertex:build:production"
             },
             "development": {
-              "buildTarget": "hr-management-portal:build:development"
+              "buildTarget": "vertex:build:development"
             }
           },
           "defaultConfiguration": "development"
