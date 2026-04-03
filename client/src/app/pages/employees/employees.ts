@@ -3,6 +3,7 @@ import { Table, TableHeaderActionArea, TableHeaderContentArea } from '../../comp
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../interfaces/api';
 import { EmployeeFilter } from './employee-filter';
+import { environment } from '../../../environments/environment.prod';
 
 interface Employee {
   employeeId: string;
@@ -31,7 +32,7 @@ export class Employees implements OnInit {
   employeesList = signal<Employee[]>([]);
 
   ngOnInit(): void {
-    this.http.get<ApiResponse>("http://localhost:8000/api/employee?page=1&limit=10")
+    this.http.get<ApiResponse>(`${environment.apiUrl}/employee?page=1&limit=10`)
       .subscribe(res => {
         if(res.data) {
           this.employeesList.set(res.data);

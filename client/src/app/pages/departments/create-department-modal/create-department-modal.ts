@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'div[app-create-department-modal]',
@@ -37,7 +38,7 @@ export class CreateDepartmentModal {
       return;
     }
 
-    this.http.post("http://localhost:8000/api/department", this.department.value).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/department`, this.department.value).subscribe(() => {
       this.department.reset();
       this.emitClose.emit("added")
     })
@@ -47,9 +48,5 @@ export class CreateDepartmentModal {
   onCancel() {
     this.emitClose.emit();
   }
-
-
-
-
 }
 

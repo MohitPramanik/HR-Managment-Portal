@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, inject, OnInit, output, signal } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiResponse } from '../../../interfaces/api';
+import { environment } from '../../../../environments/environment.prod';
 
 interface Department {
   _id: string;
@@ -41,7 +42,7 @@ export class CreateJobModal {
   })
 
   constructor() {
-    this.http.get<ApiResponse>("http://localhost:8000/api/department")
+    this.http.get<ApiResponse>(`${environment.apiUrl}/department`)
       .subscribe(res => {
         if (res.data) {
           this.departments.set(res.data)
@@ -73,7 +74,7 @@ export class CreateJobModal {
         .map((skill) => skill.trim())
     }
 
-    this.http.post("http://localhost:8000/api/job", payload)
+    this.http.post(`${environment.apiUrl}/job`, payload)
       .subscribe(res => {
         this.jobForm.reset();
         this.emitClose.emit("added");

@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth/auth-service';
 import { Modal } from '../../../components/modal/modal';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'section[leave-apply]',
@@ -47,7 +48,7 @@ export class LeaveApply {
   onSubmit() {
     this.loading.set(true);
 
-    this.http.post("http://localhost:8000/api/leave/apply", {
+    this.http.post(`${environment.apiUrl}/leave/apply`, {
       empId: this.auth.currentUser?.id,
       managerId: this.auth.currentUser?.managerId,
       ...this.leaveForm.value

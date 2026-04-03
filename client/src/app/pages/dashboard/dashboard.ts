@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../interfaces/api';
 import { DashboardCard } from './dashboard-card';
 import { CardDataSelection, DashboardCardApiResponse, Holiday, IDashBoardCard } from '../../interfaces/dashboard';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class Dashboard implements OnInit {
   organizationCardData = signal<IDashBoardCard[]>([]);
 
   fetchDashboardCardData() {
-    this.http.post<DashboardCardApiResponse>("http://localhost:8000/api/dashboard", {
+    this.http.post<DashboardCardApiResponse>(`${environment.apiUrl}/dashboard`, {
       empId: this.auth.currentUser?.id,
       role: this.auth.currentUser?.role
     })
@@ -41,7 +42,7 @@ export class Dashboard implements OnInit {
   }
 
   fetchHolidayList() {
-    this.http.get<ApiResponse>("http://localhost:8000/api/holiday/upcoming")
+    this.http.get<ApiResponse>(`${environment.apiUrl}/holiday/upcoming`)
       .subscribe(res => this.holidays.set(res.data));
   }
 

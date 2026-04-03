@@ -4,6 +4,7 @@ import { Table } from '../../../components/table/table';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth/auth-service';
 import { ApiResponse } from '../../../interfaces/api';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'section[leave-requests]',
@@ -19,7 +20,7 @@ export class LeaveRequests implements OnInit {
   role = this.auth.currentUser?.role;
 
   ngOnInit(): void {
-    this.http.post<ApiResponse>("http://localhost:8000/api/leave", {
+    this.http.post<ApiResponse>(`${environment.apiUrl}/leave`, {
       empId: this.auth.currentUser?.id,
       role: "employee"
     }).subscribe(res => this.leaveRequests.set(res.data));

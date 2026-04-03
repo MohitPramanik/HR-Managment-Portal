@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { ApiResponse } from "../../interfaces/api";
+import { environment } from "../../../environments/environment.prod";
 
 interface Department {
     _id: string;
@@ -39,7 +40,7 @@ export class EmployeeFilter implements OnInit {
     }
 
     ngOnInit(): void {
-        this.http.get<ApiResponse>("http://localhost:8000/api/department")
+        this.http.get<ApiResponse>(`${environment.apiUrl}/department`)
             .subscribe(res => {
                 this.departments.set(res.data);
             })

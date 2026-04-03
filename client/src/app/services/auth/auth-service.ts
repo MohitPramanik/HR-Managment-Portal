@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, UserRole } from '../../interfaces/user';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signup(username: string, email: string, password: string, agreeTerms: boolean): void {
-    this.http.post("http://localhost:8000/api/auth/register", {
+    this.http.post(`${environment.apiUrl}/auth/register`, {
       username, email, password, agreeTerms
     }).subscribe({
       next: (result: any) => {
@@ -39,7 +40,7 @@ export class AuthService {
 
   login(email: string, password: string): void{
 
-    this.http.post("http://localhost:8000/api/auth/login", {
+    this.http.post(`${environment.apiUrl}/auth/login`, {
       email,
       password
     }).subscribe({

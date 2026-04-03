@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Table } from '../../components/table/table';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.prod';
 
 type Holiday = {
   name: string;
@@ -25,9 +26,10 @@ export class HolidayCalendar {
   holidays = signal<Holiday[]>([]);
 
   constructor(private http: HttpClient) {
-    this.http.get<ApiResponse>("http://localhost:8000/api/holiday").subscribe((val) => {
-      this.holidays.set(val?.data);
-    })
+    this.http.get<ApiResponse>(`${environment.apiUrl}/holiday`)
+      .subscribe((val) => {
+        this.holidays.set(val?.data);
+      })
   }
 
 }

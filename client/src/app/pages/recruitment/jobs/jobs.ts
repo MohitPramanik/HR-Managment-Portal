@@ -4,6 +4,7 @@ import { Modal } from '../../../components/modal/modal';
 import { CreateJobModal } from '../create-job-modal/create-job-modal';
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../../../interfaces/api';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-jobs',
@@ -20,7 +21,7 @@ export class Jobs implements OnInit {
   isCreateJobModalOpen = signal<boolean>(false);
 
   fetchAllJobs() {
-    this.http.get<ApiResponse>("http://localhost:8000/api/job")
+    this.http.get<ApiResponse>(`${environment.apiUrl}/job`)
       .subscribe(res => {
         if (res.data) {
           this.jobs.set(res.data);

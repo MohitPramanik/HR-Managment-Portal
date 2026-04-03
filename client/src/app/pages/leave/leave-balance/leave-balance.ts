@@ -4,6 +4,7 @@ import { Table, TableHeaderContentArea } from '../../../components/table/table';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth/auth-service';
 import { ApiResponse } from '../../../interfaces/api';
+import { environment } from '../../../../environments/environment.prod';
 
 interface ILeaveBalance {
   leaveType: string;
@@ -24,7 +25,7 @@ export class LeaveBalance implements OnInit {
   leaveBalanceData = signal<ILeaveBalance[]>([]);
 
   ngOnInit(): void {
-    this.http.post<ApiResponse>("http://localhost:8000/api/leave/balance", {
+    this.http.post<ApiResponse>(`${environment.apiUrl}/leave/balance`, {
       empId: this.auth.currentUser?.id
     }).subscribe(res => this.leaveBalanceData.set(res.data));
   }

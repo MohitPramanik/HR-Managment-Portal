@@ -3,6 +3,7 @@ import { Table } from '../../components/table/table';
 import { Modal } from '../../components/modal/modal';
 import { CreateDepartmentModal } from './create-department-modal/create-department-modal';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.prod';
 
 interface Department {
   name: string;
@@ -31,7 +32,7 @@ export class Departments implements OnInit {
   departments = signal<Department[]>([]);
 
   fetchAllDepartments() {
-    this.http.get<ApiResponse>("http://localhost:8000/api/department")
+    this.http.get<ApiResponse>(`${environment.apiUrl}/department`)
       .subscribe(res => {
         if (res.data) {
           this.departments.set(res.data);
