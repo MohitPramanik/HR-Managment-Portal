@@ -6,7 +6,7 @@ import { dbConnect } from "./utils/db";
 import cors, { CorsOptions } from "cors";
 
 const corsOptions: CorsOptions = {
-    origin: "https://vertex-fe-loll.onrender.com/"
+    origin: "https://vertex-fe-loll.onrender.com"
 }
 
 config();
